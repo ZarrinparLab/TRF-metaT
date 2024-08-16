@@ -17,4 +17,4 @@ All data used for analysis is available under `./data`
 
 ## Citation
 
-Flores Ramos,S., Siguenza, N., Zhong, W., Mohanty,I., Lingaraju, A., Richter, R.A., Karthikeyan, S., Lukowski, A.L., Zhu, Q., Nunes, W.D.G., Xu, Z.Z., Hasty, J., Dorrestein, P.C., Panda, S., Knight, R., Zarrinpar, A. “Metatranscriptomics Yields Bacterial Transgenes with Pronounced Metabolic Effects”. (submitted)
+Flores Ramos, S., Siguenza, N., Zhong, W., Mohanty, I., Lingaraju, A., Richter, R.A., Karthikeyan, S., Lukowski, A.L., Zhu, Q., Nunes, W.D.G., Xu, Z.Z., Hasty, J., Dorrestein, P.C., Panda, S., Knight, R., Zarrinpar, A. “Metatranscriptomics Yields Bacterial Transgenes with Pronounced Metabolic Effects”. (submitted)
