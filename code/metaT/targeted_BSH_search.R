@@ -58,7 +58,7 @@ write.table(dat_rmzs_d,"BSH/genomeD_noNT_rmdbton.tsv",sep = "\t",row.names = FAL
 md<-fread("BSH/BSH_db_metadata.txt")%>%
   mutate(FeatureID=paste("tr_",Entry,"_",`Entry Name`,sep=""),
          name=paste(Organism,Entry,sep="-"))%>%
-  select(FeatureID, everything())
+  dplyr::select(FeatureID, everything())
   #filter(FeatureID %in% dat_rmzs$FeatureID)
 
 write.table(md,"BSH/BSH_db_metadata_cln.txt",sep = "\t",row.names = FALSE, quote=FALSE)
@@ -160,9 +160,9 @@ BSHlight<-fread("BSH/birdman/genomeL_noNT_rmdbton.beta_var.tsv")%>%
          phase="light")%>%
   left_join(.,md,by="FeatureID")%>%
   #filter(credible=="yes")%>%
-  select(name, ratio, min, max, phase)%>%
+  dplyr::select(name, ratio, min, max, phase)#%>%
   #arrange(ratio)%>%
-  filter(name %in% BSHdark$name)
+  #filter(name %in% BSHdark$name)
 
 
 BSHdark<-fread("BSH/birdman/genomeD_noNT_rmdbton.beta_var.tsv")%>%
@@ -175,10 +175,10 @@ BSHdark<-fread("BSH/birdman/genomeD_noNT_rmdbton.beta_var.tsv")%>%
          credible=ifelse(min>0|max<0,"yes","no"),
          phase="dark")%>%
   left_join(.,md,by="FeatureID")%>%
-  filter(credible=="yes")%>%
-  select(name, ratio, min, max, phase)%>%
+  #filter(credible=="yes")%>%
+  dplyr::select(name, ratio, min, max, phase)#%>%
   #filter(name %in% BSHlight$name)
-  arrange(ratio)
+  #arrange(ratio)
 
 selfeat<-rbind(BSHlight,BSHdark)%>%select(1:2,5)%>%
   spread(phase,ratio)%>%
@@ -187,8 +187,9 @@ selfeat<-rbind(BSHlight,BSHdark)%>%select(1:2,5)%>%
   arrange(desc(diff_m))
 
 BSH<-rbind(BSHlight,BSHdark)%>%
-  mutate(phase=factor(phase,levels=c("light","dark")))%>%
-  filter(name %in% selfeat$name)
+  mutate(phase=factor(phase,levels=c("light","dark")))#%>%
+  #filter(name %in% selfeat$name)
+write.table(BSH,"BSH/birdman/genomeLD_noNT_rmdbton.beta_var.tsv",sep = "\t",row.names = FALSE, quote=FALSE)
 
 BSH$name <- factor(BSH$name,levels = selfeat$name)
 BSH$name <- factor(BSH$name,levels = BSHlight$name )
@@ -307,6 +308,11 @@ pairwise.wilcox.test(natlog_bshD$Current_Natural_Log_Ratio, natlog_bshD$conditio
 
 #plot the distribution of BSH by genus (Light)
 
+md<-fread("BSH/BSH_db_metadata.txt")%>%
+  mutate(FeatureID=paste("tr_",Entry,"_",`Entry Name`,sep=""),
+         name=paste(Organism,Entry,sep="-"))%>%
+  select(FeatureID, everything())
+
 mdT<-fread("metaT_metadata_ztcat_noNT.txt")%>%
   mutate(condition=ifelse(is.na(condition),"NA",condition))
 
@@ -339,4 +345,190 @@ p<-ggplot(data=bsh_dat, aes(x=reorder(name, sum_log_TPM), y=log_mn_TPM, fill=con
 
 ggsave("BSH/SFR23_0719_BSHlight_logTPM.pdf", height=5, width=7)
 ggsave("BSH/SFR23_0719_BSHdark_logTPM.pdf", height=5, width=7)
+
+##############################################################################
+
+#just dubosiella newyorkensis BSH abundance-TPM
+
+bsh_dat<-fread("BSH/genome-TPM_noNT_rmdbton.tsv") %>%
+  gather(sample_name,TPM_counts,-FeatureID)%>%
+  mutate(FeatureID=gsub("sp_","tr_",FeatureID))%>%
+  left_join(.,md,by="FeatureID")%>%
+  left_join(.,mdT,by="sample_name")%>%
+  mutate(log_TPM=log2(TPM_counts+1),
+         condition=factor(condition, levels = c("NA", "FA","FT")),
+         phase=factor(phase, levels = c("light","dark")))%>%
+  filter(Organism=="Dubosiella newyorkensis")
+
+bsh1<-bsh_dat%>%filter(Entry=="A0A1U7NKD7")
+bsh2<-bsh_dat%>%filter(Entry=="A0A1U7NP31")
+
+p<-ggplot(bsh1, aes(x=condition, y=TPM_counts,fill=condition)) +
+#<-ggplot(bsh1, aes(x=condition, y=log_TPM,fill=condition)) +
+  geom_boxplot(alpha=0.3) + geom_dotplot(binaxis='y', stackdir='center',
+                                         position=position_dodge(1)) +
+  facet_wrap(~phase)+
+  theme_classic()+ scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
+  labs(x="condition",y="log2(TPM)",title="D. newyorkensis BSH A0A1U7NKD7")+
+  theme(legend.position = "none")
+
+ggsave("BSH/SFR25_0103_DnewyorkensisBSH1_TPM.pdf", height=3, width=4)
+ggsave("BSH/SFR25_0103_DnewyorkensisBSH1_log2TPM.pdf", height=3, width=4)
+
+bsh1L<-bsh1%>%filter(phase=="light")
+pairwise.wilcox.test(bsh1L$TPM_counts, bsh1L$condition,p.adjust.method="fdr")
+pairwise.wilcox.test(bsh1L$log_TPM, bsh1L$condition,p.adjust.method="fdr")
+# NA   FA  
+# FA 0.73 -   
+#   FT 0.73 0.73
+
+bsh1D<-bsh1%>%filter(phase=="dark")
+pairwise.wilcox.test(bsh1D$TPM_counts, bsh1D$condition,p.adjust.method="fdr")
+pairwise.wilcox.test(bsh1D$log_TPM, bsh1D$condition,p.adjust.method="fdr")
+# NA    FA   
+# FA 0.077 -    
+#   FT 0.082 0.029
+
+p<-ggplot(bsh2, aes(x=condition, y=TPM_counts,fill=condition)) +
+#p<-ggplot(bsh2, aes(x=condition, y=log_TPM,fill=condition)) +
+  geom_boxplot(alpha=0.3) + geom_dotplot(binaxis='y', stackdir='center',
+                                         position=position_dodge(1)) +
+  facet_wrap(~phase)+
+  theme_classic()+ scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
+  labs(x="condition",y="log2(TPM)",title="D. newyorkensis BSH A0A1U7NP31")+
+  theme(legend.position = "none")
+
+ggsave("BSH/SFR25_0103_DnewyorkensisBSH2_TPM.pdf", height=3, width=4)
+ggsave("BSH/SFR25_0103_DnewyorkensisBSH2_log2TPM.pdf", height=3, width=4)
+
+bsh2L<-bsh2%>%filter(phase=="light")
+pairwise.wilcox.test(bsh2L$TPM_counts, bsh2L$condition,p.adjust.method="fdr")
+pairwise.wilcox.test(bsh2L$log_TPM, bsh2L$condition,p.adjust.method="fdr")
+# NA   FA  
+# FA 0.66 -   
+#   FT 0.66 1.00
+
+bsh2D<-bsh2%>%filter(phase=="dark")
+pairwise.wilcox.test(bsh2D$TPM_counts, bsh2D$condition,p.adjust.method="fdr")
+pairwise.wilcox.test(bsh2D$log_TPM, bsh2D$condition,p.adjust.method="fdr")
+# NA    FA   
+# FA 0.192 -    
+#   FT 0.192 0.029
+
+##############################################################################
+
+#just dubosiella newyorkensis BSH abundance-norm
+
+#natlog_nkd7<-fread("BSH/rpca_results_genome/sample_plot_data_NKD7b10.tsv")%>%
+natlog_np31<-fread("BSH/rpca_results_genome/sample_plot_data_NP31b10.tsv")%>%
+  dplyr::select(1:2)%>%
+  dplyr::rename(sample_name=`Sample ID`)%>%
+  left_join(.,mdT,by="sample_name")%>%
+  mutate(condition=ifelse(is.na(condition),"NA",condition))%>%
+  mutate(condition=factor(condition,levels=c("NA","FA","FT")),
+         phase=factor(phase,levels=c("light","dark")),
+         Current_Natural_Log_Ratio=as.numeric(Current_Natural_Log_Ratio))
+
+p<-ggplot(natlog_np31, aes(x=condition, y=Current_Natural_Log_Ratio,fill=condition)) +
+#p<-ggplot(natlog_nkd7, aes(x=condition, y=Current_Natural_Log_Ratio,fill=condition)) +
+  geom_boxplot(alpha=0.3) + geom_dotplot(binaxis='y', stackdir='center',
+                                         position=position_dodge(1)) +
+  theme_minimal()+ scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
+  labs(x="condition",y="Natural Log Ratio (NP31/b10%)",title="Bile Salt Hydrolase (BSH)")+
+  theme(legend.position = "none")
+
+pairwise.wilcox.test(natlog_nkd7$Current_Natural_Log_Ratio, natlog_nkd7$condition,
+                     p.adjust.method="fdr")
+
+# NA   FA  
+# FA 0.67 -   
+#   FT 1.00 1.00
+
+pairwise.wilcox.test(natlog_np31$Current_Natural_Log_Ratio, natlog_np31$condition,
+                     p.adjust.method="fdr")
+
+# NA  FA 
+# FA 0.8 -  
+#   FT 1.0 0.8
+
+
+p<-ggplot(natlog_np31, aes(x=condition, y=Current_Natural_Log_Ratio,fill=condition)) +
+#p<-ggplot(natlog_nkd7, aes(x=condition, y=Current_Natural_Log_Ratio,fill=condition)) +
+  geom_boxplot(alpha=0.3) + geom_dotplot(binaxis='y', stackdir='center',
+                                         position=position_dodge(1)) +
+  facet_wrap(~phase)+
+  theme_classic()+ scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
+  labs(x="condition",y="Natural Log Ratio (NP31/bottom10 BSH)",title="Bile Salt Hydrolase (BSH)")+
+  theme(legend.position = "none")
+
+ggsave("BSH/rpca_results_genome/nat_log_NKD710b.pdf",height=3, width=4)
+ggsave("BSH/rpca_results_genome/nat_log_NP3110b.pdf",height=3, width=4)
+
+natlog_nkd7L<-natlog_nkd7%>%filter(phase=="light")
+pairwise.wilcox.test(natlog_nkd7L$Current_Natural_Log_Ratio, natlog_nkd7L$condition,
+                     p.adjust.method="fdr")
+
+# NA FA
+# FA 1  - 
+#   FT 1  1 
+
+natlog_nkd7D<-natlog_nkd7%>%filter(phase=="dark")
+pairwise.wilcox.test(natlog_nkd7D$Current_Natural_Log_Ratio, natlog_nkd7D$condition,
+                     p.adjust.method="fdr")
+
+# Error in wilcox.test.default(xi, xj, paired = paired, ...) : 
+#   not enough (non-missing) 'x' observations
+
+natlog_np31L<-natlog_np31%>%filter(phase=="light")
+pairwise.wilcox.test(natlog_np31L$Current_Natural_Log_Ratio, natlog_np31L$condition,
+                     p.adjust.method="fdr")
+# NA   FA  
+# FA 0.86 -   
+#   FT 0.86 0.86
+
+natlog_np31D<-natlog_np31%>%filter(phase=="dark")
+pairwise.wilcox.test(natlog_np31D$Current_Natural_Log_Ratio, natlog_np31D$condition,
+                     p.adjust.method="fdr")
+
+# Error in wilcox.test.default(xi, xj, paired = paired, ...) : 
+#   not enough (non-missing) 'x' observations
+
+##############################################################################
+
+#plot ANI for BSH of interest
+
+ani<-fread("BSH/BSH_ENB/prot_seqn_analysis_foley/BSH_ani_subset.txt")%>%
+  dplyr::select(-V1)
+
+# names(ani) <- c("Group1","G000364225_101","prot_1","prot_4","prot_5","prot_6","tr|A0A1U7NKD7|A0A1U7NKD7_9FIRM",
+#                 "tr|A0A1U7NP31|A0A1U7NP31_9FIRM","EEU29635","KFOAOCCA_00205","LGAS_RS04710","KFOAOCCA_00001",
+#                 "WP_003547395.1","KRL87916","KRN10896.1","ABQ82994","LBA0892","WP_005718943.1","WP_150399422.1",                
+#                 "JIJPODMP_01796","AZ52_04447","SFE73109.1","G009917455_1208","WP_056959219.1","EFK28582.1",                    
+#                 "prot_3","prot_2","KRM51566.1","KFOAOCCA_01485","LGAS_RS00260","G000014425_51")
+
+names(ani)<-c("Group1","G000364225_101","prot_1","prot_4","prot_2","KRM51566.1","KFOAOCCA_01485","LGAS_RS00260",
+              "G000014425_51","tr|A0A1U7NKD7|A0A1U7NKD7_9FIRM","prot_5","prot_6","tr|A0A1U7NP31|A0A1U7NP31_9FIRM",
+              "JIJPODMP_01796","AZ52_04447","SFE73109.1","G009917455_1208","WP_056959219.1","EFK28582.1","prot_3" )
+
+ord_list<-c("G000364225_101","prot_1","prot_4","prot_2","KRM51566.1","KFOAOCCA_01485","LGAS_RS00260",
+           "G000014425_51","tr|A0A1U7NKD7|A0A1U7NKD7_9FIRM","prot_5","prot_6","tr|A0A1U7NP31|A0A1U7NP31_9FIRM",
+           "JIJPODMP_01796","AZ52_04447","SFE73109.1","G009917455_1208","WP_056959219.1","EFK28582.1","prot_3")
+
+ani<-ani%>%
+  gather(Group2,ani_values,-Group1)%>%
+  mutate(Group1=factor(Group1,levels=ord_list),
+         Group2=factor(Group2,levels=ord_list))
+
+
+p<-ggplot(ani, aes(x = Group2, y = Group1, fill = ani_values)) +
+  geom_tile() +
+  geom_text(aes(label = signif(ani_values,digits=3))) +
+  scale_fill_distiller(palette = "Reds",direction=1) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),legend.position = "top")+labs(title="Percent Indentity Matrix",x="",y="")
+ggsave("BSH/BSH_ENB/prot_seqn_analysis_foley/SFR25_0207_anisub.pdf",plot=p, width = 10, height = 10)
+
+
+
+
 

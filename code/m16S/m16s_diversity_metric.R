@@ -10,6 +10,8 @@ library(ggbreak)
 library(scatterplot3d)
 library(car)
 
+#####################################################################################
+
 md<-fread("metadata.TRF_combined.tab")%>%
   mutate(phase=ifelse(zt<13,"light","dark"),
          cond_phase=paste(condition,phase,sep="_"),
@@ -92,18 +94,6 @@ pairwise.wilcox.test(alphaNA$shannon, alphaNA$phase,
 alphaZT<-alpha%>% group_by(condition,zt)%>%mutate(meanAbun=mean(shannon_entropy),str=sd(shannon_entropy)/sqrt(length(shannon_entropy)),
                                                        t.score = qt(p=0.05/2, df=length(shannon_entropy)-1,lower.tail=F),
                                                        margin.error=t.score*str)
-
-# p<-alphaZT%>%
-#   ggplot(aes(x=zt, y=meanAbun, color=condition)) +
-#   geom_point(alpha=1.0) + geom_line() +
-#   theme_pubr() +
-#   scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+
-#   scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
-#   geom_ribbon(aes(ymin = meanAbun-margin.error, ymax = meanAbun+margin.error, fill=condition),alpha=0.5,colour = NA)+
-#   labs(color="condition",
-#        y =paste("shannon distance",sep=""),
-#        x ="ZT time")+ theme(plot.title = element_text(face = "bold"))
-# ggsave("diversity-core-metrics6k/SFR22_1028_shannon_m16s_ztime.pdf", plot=p,height=4, width=5)
 
 #RPCA results
 ord <- read_qza("ordination_deicode_asv16S.qza")

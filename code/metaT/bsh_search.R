@@ -358,7 +358,61 @@ pairwise.wilcox.test(natlog_bshNA$Current_Natural_Log_Ratio, natlog_bshNA$phase,
 
 # light
 # dark 0.19 
+###########################################################
 
+#natlog of just dubosiella 
+
+md<-fread("metaT_metadata_ztcat_noNT.txt")%>%
+  mutate(condition=ifelse(is.na(condition),"NA",condition))%>%
+  dplyr::rename(`Sample ID`=sample_name)
+
+natlog_bsh<-fread("species_pfam/rpca_results_BSH_RPOB_rmzero/sample_plot_data_dnbsh_rpob.tsv")%>%
+  dplyr::select(1:2)%>%
+  left_join(.,md,by="Sample ID")%>%
+  mutate(condition=ifelse(is.na(condition),"NA",condition))%>%
+  mutate(condition=factor(condition,levels=c("NA","FA","FT")),
+         phase=factor(phase,levels=c("light","dark")),
+         Current_Natural_Log_Ratio=as.numeric(Current_Natural_Log_Ratio))
+
+p<-ggplot(natlog_bsh, aes(x=condition, y=Current_Natural_Log_Ratio,fill=condition)) +
+  geom_boxplot(alpha=0.3) + geom_dotplot(binaxis='y', stackdir='center',
+                                         position=position_dodge(1)) +
+  theme_minimal()+ scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
+  labs(x="condition",y="Natural Log Ratio (BSH/RPOB)",title="Bile Salt Hydrolase (BSH)")+
+  theme(legend.position = "none")
+
+pairwise.wilcox.test(natlog_bsh$Current_Natural_Log_Ratio, natlog_bsh$condition,
+                     p.adjust.method="fdr")
+# NA     FA    
+# FA 0.0072 -     
+#   FT 0.1129 0.6461
+
+ggsave("species_pfam/rpca_results_BSH_RPOB_rmzero/SFR25_0205_natlog_DnBSHvsRPOB.pdf", plot=p,height=3.5, width=3.5)
+
+p<-ggplot(natlog_bsh, aes(x=condition, y=Current_Natural_Log_Ratio,fill=condition)) +
+  geom_boxplot(alpha=0.3) + geom_dotplot(binaxis='y', stackdir='center',
+                                         position=position_dodge(1)) +
+  facet_wrap(~phase)+
+  theme_classic()+ scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))+scale_fill_manual(values=c("#0072B2","#D55E00","#009E73"))+
+  labs(x="condition",y="Natural Log Ratio (BSH/RPOB)",title="Bile Salt Hydrolase (BSH)")+
+  theme(legend.position = "none")
+
+ggsave("species_pfam/rpca_results_BSH_RPOB_rmzero/SFR25_0205_natlog_DnBSHvsRPOB_lightdark.pdf", plot=p,height=3, width=4)
+natlog_bshL<-natlog_bsh%>%filter(phase=="light")
+pairwise.wilcox.test(natlog_bshL$Current_Natural_Log_Ratio, natlog_bshL$condition,
+                     p.adjust.method="fdr")
+
+# NA   FA  
+# FA 0.23 -   
+#   FT 0.53 0.61
+
+natlog_bshD<-natlog_bsh%>%filter(phase=="dark")
+pairwise.wilcox.test(natlog_bshD$Current_Natural_Log_Ratio, natlog_bshD$condition,
+                     p.adjust.method="fdr")
+#species BSH_RPOB
+# NA    FA   
+# FA 0.029 -    
+#   FT 0.600 0.857
 ###########################################################
 #natlog but using the songbird results
 
@@ -600,8 +654,8 @@ BSHlight<-fread("species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_lig
          max=as.numeric(max),
          diff=max-min,
          phase="light")%>%
-  filter(diff<10)%>%
-  select(FeatureID, ratio, min, max, phase)%>%
+  #filter(diff<10)%>%
+  dplyr::select(FeatureID, ratio, min, max, phase)%>%
   arrange(ratio)#%>%
   filter(FeatureID %in% BSHdark$FeatureID)
 
@@ -615,11 +669,12 @@ BSHdark<-fread("species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_dark
          max=as.numeric(max),
          diff=max-min,
          phase="dark")%>%
-  select(FeatureID, ratio, min, max, phase)%>%
+  dplyr::select(FeatureID, ratio, min, max, phase)%>%
   filter(FeatureID %in% BSHlight$Feature)%>%
   arrange(ratio)
 
 BSH<-rbind(BSHlight,BSHdark)%>%mutate(phase=factor(phase,levels=c("light","dark")))
+write.table(BSH,"species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_allLD.beta_var.tsv",sep = "\t",row.names = FALSE, quote=FALSE)
 
 BSH$Feature <- factor(BSH$Feature,levels = BSHlight$Feature )
 BSH$Feature <- factor(BSH$Feature,levels = BSHdark$Feature )
@@ -672,9 +727,9 @@ BSHlight<-fread("species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_lig
          phase="light",
          diff=max-min)%>%
   #filter(diff<10)%>%
-  select(FeatureID, ratio, min, max, phase)%>%
+  dplyr::select(FeatureID, ratio, min, max, phase)#%>%
   #arrange(ratio)#%>%
-  filter(FeatureID %in% BSHdark$Feature)
+  #filter(FeatureID %in% BSHdark$Feature)
 
 
 BSHdark<-fread("species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_darkNA.beta_var.tsv")%>%
@@ -687,12 +742,13 @@ BSHdark<-fread("species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_dark
          cred=ifelse(min>0|max<0,"credible","not_credible"),
          phase="dark",
          diff=max-min)%>%
-  filter(diff<10)%>%
-  select(FeatureID, ratio, min, max, phase)%>%
+  #filter(diff<10)%>%
+  dplyr::select(FeatureID, ratio, min, max, phase)#%>%
   #filter(FeatureID %in% BSHlight$Feature)
-  arrange(ratio)
+  #arrange(ratio)
 
 BSH<-rbind(BSHlight,BSHdark)%>%mutate(phase=factor(phase,levels=c("light","dark")))
+write.table(BSH,"species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_allLDNA.beta_var.tsv",sep = "\t",row.names = FALSE, quote=FALSE)
 
 #BSH$Feature <- factor(BSH$Feature,levels = BSHlight$Feature )
 BSH$Feature <- factor(BSH$Feature,levels = BSHdark$Feature )

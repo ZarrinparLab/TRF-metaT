@@ -21,21 +21,28 @@ FT_metacyc<-fread("cyclic_analysis/wol2_dna_pipeline/FT_metacycle/meta2d_filtere
   dplyr::rename(FeatureID=CycID) %>%
   left_join(.,pfam_annot, by="FeatureID")%>%
   arrange(JTK_adjphase)%>%
-  mutate(label_name=paste(FeatureID, Name, sep=" "))
+  #mutate(label_name=paste(FeatureID, Name, sep=" "))
+  dplyr::select(FeatureID,Name, everything())
+write.table(FT_metacyc,"cyclic_analysis/wol2_dna_pipeline/FT_metacycle/meta2d_filtered_dna_FT_wannot.txt",sep = "\t",row.names = FALSE, quote=FALSE)
 
 #read in FA metacycle hits
 FA_metacyc<-fread("cyclic_analysis/wol2_dna_pipeline/FA_metacycle/meta2d_filtered_dna_FA.txt")%>%
   dplyr::rename(FeatureID=CycID) %>%
   left_join(.,pfam_annot, by="FeatureID")%>%
   arrange(JTK_adjphase)%>%
-  mutate(label_name=paste(FeatureID, Name, sep=" "))
+  #mutate(label_name=paste(FeatureID, Name, sep=" "))
+  dplyr::select(FeatureID,Name, everything())
+write.table(FA_metacyc,"cyclic_analysis/wol2_dna_pipeline/FA_metacycle/meta2d_filtered_dna_FA_wannot.txt",sep = "\t",row.names = FALSE, quote=FALSE)
 
 #read in NA metacycle hits
 NA_metacyc<-fread("cyclic_analysis/wol2_dna_pipeline/NA_metacycle/meta2d_filtered_dna_NA.txt")%>%
   dplyr::rename(FeatureID=CycID) %>%
   left_join(.,pfam_annot, by="FeatureID")%>%
   arrange(JTK_adjphase)%>%
-  mutate(label_name=paste(FeatureID, Name, sep=" "))
+  #mutate(label_name=paste(FeatureID, Name, sep=" "))
+  dplyr::select(FeatureID,Name, everything())
+write.table(NA_metacyc,"cyclic_analysis/wol2_dna_pipeline/NA_metacycle/meta2d_filtered_dna_NA_wannot.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+
 
 #rpob is not cycling in any of the conditions
 

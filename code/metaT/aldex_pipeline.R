@@ -82,7 +82,11 @@ FAFT.effect<-fread(paste0(dir2,"FAFT_ald_effectwpval.txt"))
 FAFT.effect.annot<-FAFT.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+
+write.table(FAFT.effect.annot,paste0(dir2,"FAFT_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
+
 
 FAFT.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -111,7 +115,10 @@ FAFTL.effect<-fread(paste0(dir2,"FAFTL_ald_effectwpval.txt"))
 FAFTL.effect.annot<-FAFTL.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FAFTL.effect.annot,paste0(dir2,"FAFTL_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
+
 
 FAFTL.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -137,7 +144,10 @@ FAFTD.effect<-fread(paste0(dir2,"FAFTD_ald_effectwpval.txt"))
 FAFTD.effect.annot<-FAFTD.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                          ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                          ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FAFTD.effect.annot,paste0(dir2,"FAFTD_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
+
 
 FAFTD.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -166,7 +176,10 @@ FTNA.effect<-fread(paste0(dir2,"FTNA_ald_effectwpval.txt"))
 FTNA.effect.annot<-FTNA.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FTNA.effect.annot,paste0(dir2,"FTNA_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
+
 
 FTNA.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -195,7 +208,9 @@ FTNAL.effect<-fread(paste0(dir2,"FTNAL_ald_effectwpval.txt"))
 FTNAL.effect.annot<-FTNAL.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FTNAL.effect.annot,paste0(dir2,"FTNAL_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 FTNAL.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -225,7 +240,9 @@ FTNAD.effect<-fread(paste0(dir2,"FTNAD_ald_effectwpval.txt"))
 FTNAD.effect.annot<-FTNAD.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FTNAD.effect.annot,paste0(dir2,"FTNAD_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 FTNAD.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -253,7 +270,9 @@ FANA.effect<-fread(paste0(dir2,"FANA_ald_effectwpval.txt"))
 FANA.effect.annot<-FANA.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FANA.effect.annot,paste0(dir2,"FANA_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 FANA.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -283,7 +302,10 @@ FANAL.effect<-fread(paste0(dir2,"FANAL_ald_effectwpval.txt"))
 FANAL.effect.annot<-FANAL.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FANAL.effect.annot,paste0(dir2,"FANAL_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
+
 
 FANAL.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -313,7 +335,9 @@ FANAD.effect<-fread(paste0(dir2,"FANAD_ald_effectwpval.txt"))
 FANAD.effect.annot<-FANAD.effect %>% left_join(.,annot, by ="FeatureID") %>%
   filter(!grepl("DUF",Name))%>%
   mutate(diffexpr=ifelse(wi.eBH<0.1 & diff.btw>0, "up",
-                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))
+                         ifelse(wi.eBH<0.1 & diff.btw< -0,"down","none")))%>%
+  dplyr::select(FeatureID,Name, everything())
+write.table(FANAD.effect.annot,paste0(dir2,"FANAD_ald_effectwpval_wannot.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 FANAD.effect.annot %>% group_by(diffexpr) %>% tally(sort = TRUE)
 
@@ -606,8 +630,8 @@ pfamFAFT_summ<-pfamFAFT%>%
   group_by(name)%>%mutate(sum=sum(n))%>%
   mutate(n=ifelse(phase=="light", n*-1,n),
          phase=factor(phase, levels = c("light","dark")))%>%
-  arrange(sum)%>%
-  filter(sum>1)
+  arrange(sum)#%>%
+  # filter(sum>1)
 
 pfamFAFT_summ$name <- factor(pfamFAFT_summ$name,levels = unique(pfamFAFT_summ$name))
 
@@ -618,6 +642,7 @@ ggplot(data=pfamFAFT_summ, aes(x=name, y=n, fill=phase)) +
   scale_y_continuous(expand=c(0,0))
 
 ggsave(paste0(dir2,"FAFT_GOterms.pdf"),height=4, width=7)
+ggsave(paste0(dir2,"FAFT_GOterms_wsingleton.pdf"),height=6, width=7)
 
 #FANA
 pfamFANAD<-read.table("/mnt/zarrinpar/scratch/sfloresr/TRF_multiomics/metatranscript/woltka2_results/pfam-to-go-process.map",header = FALSE, sep = "\t",

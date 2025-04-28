@@ -49,8 +49,8 @@ alphaG <- read_qza("~/scratch/TRF_multiomics/metagenomic/woltka2_results/filtere
 pairwise.wilcox.test(alphaG$shannon, alphaG$condition,p.adjust.method="fdr")
 
 # NA   FA  
-# FA 0.26 -   
-#   FT 0.26 0.77
+# FA 0.55 -   
+#   FT 0.55 0.55
 
 #load mtx shannon
 mdT<-fread("/mnt/zarrinpar/scratch/sfloresr/TRF_multiomics/metatranscript/woltka2_m_results/metaT_metadata_ztcat_noNT.txt")%>%
@@ -89,6 +89,7 @@ stderror <- function(x) sd(x)/sqrt(length(x))
 alpha_summ<-alpha%>%
   group_by(method,condition,zt_time)%>%
   summarise(mn_shannon_entropy=mean(shannon_entropy),sem=stderror(shannon_entropy))
+
 #over time
 p<-ggplot(alpha_summ, aes(x=zt_time, y=mn_shannon_entropy, color=condition)) +
   geom_point(alpha=1.0) + geom_line() +
@@ -105,6 +106,16 @@ ggsave("SFR24_0412_shannon_m16sMGXMTG_overZT_pfam.pdf", plot=p,height=2.5, width
 
 #stats
 alpha16s<-alpha16s%>%mutate(zt_time=as.factor(zt_time))
+
+qq16s<-ggplot(alpha16s, aes(sample = shannon_entropy)) +
+  stat_qq() + stat_qq_line() +theme_pubr() +labs(title="16S")
+ggsave("SFR25_0206_shannon_16sqqplot_pfam.pdf", plot=qq16s,height=3.5, width=3)
+
+qq16s<-ggplot(alpha16s, aes(sample = shannon_entropy, colour=condition)) +
+  stat_qq() + stat_qq_line() +theme_pubr() +labs(title="16S")+
+  scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))
+ggsave("SFR25_0206_shannon_16sqqplot_cond_pfam.pdf", plot=qq16s,height=3.5, width=3)
+
 res_aov <- aov(shannon_entropy ~ condition*zt_time,
                data = alpha16s)
 summary(res_aov)
@@ -124,6 +135,15 @@ pwc <- alpha16s %>%
 
 write.table(pwc,"SFR24_0412_shannon_m16soverZT_pval.txt",sep = "\t",row.names = FALSE, quote=FALSE)
 
+qqmgx<-ggplot(alphaG, aes(sample = shannon_entropy)) +
+  stat_qq() + stat_qq_line() +theme_pubr() +labs(title="metaG")
+ggsave("SFR25_0206_shannon_mgxqqplot_pfam.pdf", plot=qqmgx,height=3.5, width=3)
+
+qqmgx<-ggplot(alphaG, aes(sample = shannon_entropy, colour=condition)) +
+  stat_qq() + stat_qq_line() +theme_pubr() +labs(title="metaG")+
+  scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))
+ggsave("SFR25_0206_shannon_mgxqqplot_cond_pfam.pdf", plot=qqmgx,height=3.5, width=3)
+
 res_aov <- aov(shannon_entropy ~ condition*zt_time,
                data = alphaG)
 summary(res_aov)
@@ -142,6 +162,14 @@ pwc <- alphaG %>%
   )
 write.table(pwc,"SFR24_0412_shannon_mgxoverZT_pval.txt",sep = "\t",row.names = FALSE, quote=FALSE)
 
+qqmgt<-ggplot(alphaT, aes(sample = shannon_entropy)) +
+  stat_qq() + stat_qq_line() +theme_pubr() +labs(title="metaT")
+ggsave("SFR25_0206_shannon_mgtqqplot_pfam.pdf", plot=qqmgt,height=3.5, width=3)
+
+qqmgt<-ggplot(alphaT, aes(sample = shannon_entropy, colour=condition)) +
+  stat_qq() + stat_qq_line() +theme_pubr() +labs(title="metaT")+
+  scale_color_manual(values=c("#0072B2","#D55E00","#009E73"))
+ggsave("SFR25_0206_shannon_mgtqqplot_cond_pfam.pdf", plot=qqmgt,height=3.5, width=3)
 
 res_aov <- aov(shannon_entropy ~ condition*zt_time,
                data = alphaT)

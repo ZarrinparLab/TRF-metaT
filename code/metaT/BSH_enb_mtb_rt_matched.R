@@ -27,7 +27,6 @@ md<-rbind(md,md_missing)%>%
                             .default = "P1"))
 write.table(md,"BSH/BSH_ENB/GNPS_rt_matching/ZT_metadata_comb.txt",sep = "\t",row.names = FALSE, quote=FALSE)   
 
-
 mtb_0h<-fread("BSH/BSH_ENB/GNPS_rt_matching/T_0hr_peak_areas_skyline_P4_P7.csv")
 mtb_0h_mp<-fread("BSH/BSH_ENB/GNPS_rt_matching/T_0hr_peak_areas_skyline_P2_repeat.csv")
 mtb_48h<-fread("BSH/BSH_ENB/GNPS_rt_matching/T_48hr_peak_areas_skyline_P6_P9.csv")
@@ -44,7 +43,7 @@ mtb<-rbind(mtb_0h,mtb_0h_mp,mtb_48h,mtb_48h_mp)%>%
 ###########################################################
 
 TRF_unpr_ttest<-function(mtb){
-  x<-pairwise.t.test(mtb$log_10_peakabun,mtb$timepoint,p.adjust.method = "none")
+  x<-pairwise.t.test(mtb$log_10_peakabun,mtb$timepoint,p.adjust.method = "fdr")
   df<-data.frame(t0hvt48h=x$p.value[1])
   return(df)
 }
@@ -56,7 +55,7 @@ run_ttests_BA<-function(mtb,BA){
     mutate(pvals = map(data, ~ TRF_unpr_ttest(.x)))%>%
     dplyr::select(-data)%>%
     unnest()
-  write.table(stat.test,paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/",BA,"suppl_ttest_unprd_tmpt_pvals_nofdr.txt",sep=""),sep = "\t",row.names = FALSE, quote=FALSE)  
+  write.table(stat.test,paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/",BA,"suppl_ttest_unprd_tmpt_pvals.txt",sep=""),sep = "\t",row.names = FALSE, quote=FALSE)  
 }
 
 BA_list<-c("GCA","GCDCA","GDCA","GLCA","GUDCA","TCA","TCDCA","TDCA","TLCA","TUDCA")
@@ -67,19 +66,52 @@ for(i in BA_list){
 # mtb_sub<-mtb%>%filter(BA_suppl=="GUDCA"& Molecule=="Ala-UDCA" & BSH_strain=="Dny-BSH1")
 # pairwise.t.test(mtb_sub$log_10_peakabun,mtb_sub$timepoint,p.adjust.method = "fdr")
 
+# mtb_bsln<-mtb%>%
+#   mutate(name_new=paste(BA_suppl,BSH_strain,sep="-"))%>%
+#   dplyr::select(Molecule,name_new,BA_suppl,BSH_strain,cult_plt,plate_location,timepoint,Area)%>%
+#   filter(timepoint!=""& !(BA_suppl%in% c("BHI","BHI-50DMSO")))%>%
+#   pivot_wider(names_from = timepoint, values_from = Area)%>%
+#   #mutate(baseline_chng=`48h`/(`0h`+1))%>%
+#   mutate(baseline_chng=`48h`-`0h`)%>%
+#   #filter(`0h`+`48h`>0)%>%
+#   mutate(condition=case_when(BSH_strain=="Dny-BSH1"|BSH_strain=="Dny-BSH2"~"FT",
+#                              BSH_strain=="LCAG-95-BSH1208"|BSH_strain=="Ep-BSH101"~"NA",
+#                              BSH_strain=="Lgasseri-BSH"~"FA",
+#                              .default = "none"))%>%
+#   #mutate(baseline_chng=ifelse(`0h`+`48h`==0, NA,baseline_chng))%>%
+#   mutate(BSH_strain=factor(BSH_strain,levels=c("EcAZ-1-cat","AZ-52","Dny-BSH1","Dny-BSH2","Lgasseri-BSH",
+#                                                "LCAG-95-BSH1208","Ep-BSH101","25MeOH","50MeOH","ctrl")),
+#          condition=factor(condition,levels=c("NA","FA","FT")))%>%
+#   mutate(Molecule=ifelse(Molecule=="Ile/Leu-UDCA","Ile_Leu_UDCA",Molecule))
+
+mtb_cult<-mtb%>%
+  mutate(name_new=paste(BA_suppl,BSH_strain,sep="-"))%>%
+  dplyr::select(Molecule,name_new,BA_suppl,BSH_strain,cult_plt,plate_location,timepoint,Area)%>%
+  filter(timepoint!=""& !(BA_suppl%in% c("BHI","BHI-50DMSO")))%>%
+  filter(BSH_strain=="ctrl")%>%
+  group_by(Molecule,BA_suppl,timepoint)%>%
+  summarise(ctrl=mean(Area))%>%
+  mutate(ctrl=as.numeric(ctrl))%>%
+  mutate(ctrl=ifelse(ctrl==0,1,ctrl))
+
 mtb_bsln<-mtb%>%
   mutate(name_new=paste(BA_suppl,BSH_strain,sep="-"))%>%
   dplyr::select(Molecule,name_new,BA_suppl,BSH_strain,cult_plt,plate_location,timepoint,Area)%>%
   filter(timepoint!=""& !(BA_suppl%in% c("BHI","BHI-50DMSO")))%>%
-  pivot_wider(names_from = timepoint, values_from = Area)%>%
-  mutate(baseline_chng=`48h`/(`0h`+1))%>%
-  #mutate(baseline_chng=`48h`-`0h`)%>%
+  filter(BSH_strain!="ctrl")%>%
+  left_join(.,mtb_cult,by=c("Molecule","BA_suppl","timepoint"))%>%
+  mutate(norm_abun=Area/ctrl)%>%
+  dplyr::select(-ctrl,-Area)%>%
+  pivot_wider(names_from = timepoint, values_from = norm_abun)%>%
+  #pivot_wider(names_from = timepoint, values_from = Area)%>%
+  #mutate(baseline_chng=`48h`/(`0h`+1))%>%
+  mutate(baseline_chng=`48h`-`0h`)%>%
   #filter(`0h`+`48h`>0)%>%
   mutate(condition=case_when(BSH_strain=="Dny-BSH1"|BSH_strain=="Dny-BSH2"~"FT",
                              BSH_strain=="LCAG-95-BSH1208"|BSH_strain=="Ep-BSH101"~"NA",
                              BSH_strain=="Lgasseri-BSH"~"FA",
                              .default = "none"))%>%
-  mutate(baseline_chng=ifelse(`0h`+`48h`==0, NA,baseline_chng))%>%
+  #mutate(baseline_chng=ifelse(`0h`+`48h`==0, NA,baseline_chng))%>%
   mutate(BSH_strain=factor(BSH_strain,levels=c("EcAZ-1-cat","AZ-52","Dny-BSH1","Dny-BSH2","Lgasseri-BSH",
                                                "LCAG-95-BSH1208","Ep-BSH101","25MeOH","50MeOH","ctrl")),
          condition=factor(condition,levels=c("NA","FA","FT")))%>%
@@ -109,7 +141,18 @@ show_deconj<-function(mtb,mtb_id){
     theme_pubr()+labs(title=mtb_id)+
     theme(legend.position = "none",panel.grid.major.y = element_line(color = "gray",size = 0.5,linetype = 2))
   
-  ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0814_mtb",mtb_id,"GCA_v2.pdf",sep="_"), p,width = 4, height = 3)
+  ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt_norm/SFR25_0125_mtb",mtb_id,"GCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GCDCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GDCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GLCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GUDCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"TCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"TCDCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"TDCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"TLCA.pdf",sep="_"), p,width = 4, height = 3)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"TUDCA.pdf",sep="_"), p,width = 4, height = 3)
+  
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0814_mtb",mtb_id,"GCA_v2.pdf",sep="_"), p,width = 4, height = 3)
   #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GCDCA.pdf",sep="_"), p,width = 4, height = 3)
   #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GDCA.pdf",sep="_"), p,width = 4, height = 3)
   #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/indv_mtb_plt/SFR24_0703_mtb",mtb_id,"GLCA.pdf",sep="_"), p,width = 4, height = 3)
@@ -173,16 +216,27 @@ BA_amine<-mtb_bsln%>%
          BA_suppl=factor(BA_suppl,levels=c("GCA","TCA","GCDCA","TCDCA","GDCA","TDCA","GLCA","TLCA","GUDCA","TUDCA")))%>%
   group_by(Molecule,BSH_strain,BA_suppl)%>%
   summarise(mn_chg_baseline=mean(baseline_chng))%>%
-  filter(!(Molecule=="Phe-UDCA"|Molecule=="Lys-UDCA"))
+  filter(!(Molecule=="Phe-UDCA"|Molecule=="Lys-UDCA"))#%>%
+  # filter(BSH_strain!="ctrl")%>%
+  # left_join(.,noenb,by=c("Molecule","BA_suppl"))%>%
+  # mutate(norm_cult=mn_chg_baseline/ctrl)
 
-p <- ggplot(BA_amine, aes(x=fct_rev(BSH_strain), y=log10(mn_chg_baseline), fill=Molecule)) + 
+# noenb<-BA_amine%>%
+#   ungroup()%>%
+#   filter(BSH_strain=="ctrl")%>%
+#   mutate(mn_chg_baseline=as.numeric(mn_chg_baseline))%>%
+#   mutate(mn_chg_baseline=ifelse(mn_chg_baseline<1,1,mn_chg_baseline))%>%
+#   dplyr::select(-BSH_strain)%>%dplyr::rename(ctrl=mn_chg_baseline)
+
+
+p <- ggplot(BA_amine, aes(x=fct_rev(BSH_strain), y=mn_chg_baseline, fill=Molecule)) + 
   geom_bar(stat="identity")+
   facet_wrap(~BA_suppl, nrow=5)+
   # scale_fill_manual(values=c("#2A6EBB","#F0AB00","#C50084","#F98F8E","#7D5CC6",
   #                            "#E37222","#69BE28","#238B45"))+
   scale_fill_manual(values=c("#2A6EBB","#69BE28","#7D5CC6",
                              "#C50084","#FDA440","#E37222"))+
-  scale_y_continuous(expand=c(0,0), limits = c(0, 25), breaks = seq(-10, 30,by = 5))+
+  #scale_y_continuous(expand=c(0,0), limits = c(0, 25), breaks = seq(-10, 30,by = 5))+
   #geom_hline(yintercept = 0, linetype = "dashed", color = "black")+
   theme_bw()+labs(title="amine BAs")+coord_flip()+
   theme(legend.position = "right")
@@ -191,7 +245,10 @@ ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall.pdf", 
 ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudca.pdf", p,width = 5.5, height = 7)
 ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudcalysudca.pdf", p,width = 5.5, height = 7)
 ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudcalysudca_48h-0h.pdf", p,width = 5.5, height = 7)
-
+ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudcalysudca.pdf", p,width = 5.5, height = 7)
+ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudcalysudca_48h-0h_nolog.pdf", p,width = 5.5, height = 7)
+ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudcalysudca_48h-0h_nolognormctrl.pdf", p,width = 5.5, height = 7)
+ggsave("BSH/BSH_ENB/GNPS_rt_matching/change_baseline/amine_conj_summ_tall_rmpheudcalysudca_48h-0h_lognormctrl.pdf", p,width = 5.5, height = 7)
 ###########################################################
 
 #plot three examples of conjugated bile acids
@@ -207,9 +264,10 @@ plt_sig_mtbs<-function(mtb,mtb_id){
     theme(legend.position = "right", plot.title = element_text(size = 12),axis.title.x = element_text(size = 10))
   #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
   #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gudcatudca/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
-  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gcdcatcdca/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
-  ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gcdatca/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
-  
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gcdatca/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gcdatca_norm/SFR25_0127_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
+  #ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gcdcatcdca_norm/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
+  ggsave(paste("BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/indv_mtb_plt_just_gudcatudca_norm/SFR24_0501_mtb",mtb_id,"_notpaired.pdf",sep=""), p,width = 8, height = 2)
 }
 
 mtb_sub<-mtb%>%
@@ -219,16 +277,37 @@ mtb_sub<-mtb%>%
   filter(BA_summ>0)%>%
   mutate(suppl_mol=paste(BA_suppl,Molecule,sep="_"))
 
+# BA_mtb<-mtb%>%
+#   mutate(Molecule=ifelse(Molecule=="Ile/Leu-UDCA","Ile_Leu_UDCA",Molecule))%>%
+#   mutate(suppl_mol=paste(BA_suppl,Molecule,sep="_"))%>%
+#   filter(suppl_mol %in% mtb_sub$suppl_mol)%>%
+#   #filter(BA_suppl=="GUDCA"|BA_suppl=="TUDCA")%>%
+#   #filter(BA_suppl=="GCDCA"|BA_suppl=="TCDCA")%>%
+#   filter(BA_suppl=="GCA"|BA_suppl=="TCA")%>%
+#   mutate(BSH_strain=factor(BSH_strain,levels=c("EcAZ-1-cat","AZ-52","Dny-BSH1","Dny-BSH2","Lgasseri-BSH",
+#                                                "LCAG-95-BSH1208","Ep-BSH101","25MeOH","50MeOH","ctrl")),
+#          BA_suppl=factor(BA_suppl,levels=c("GCA","TCA","GCDCA","TCDCA","GDCA","TDCA","GLCA","TLCA","GUDCA","TUDCA")))
+
+
 BA_mtb<-mtb%>%
+  mutate(name_new=paste(BA_suppl,BSH_strain,sep="-"))%>%
+  dplyr::select(Molecule,name_new,BA_suppl,BSH_strain,cult_plt,plate_location,timepoint,Area)%>%
+  filter(timepoint!=""& !(BA_suppl%in% c("BHI","BHI-50DMSO")))%>%
+  filter(BSH_strain!="ctrl")%>%
+  left_join(.,mtb_cult,by=c("Molecule","BA_suppl","timepoint"))%>%
+  mutate(norm_abun=Area/ctrl)%>%
+  dplyr::select(-ctrl,-Area)%>%
+  mutate(log_10_peakabun=log10(norm_abun+1))%>%
   mutate(Molecule=ifelse(Molecule=="Ile/Leu-UDCA","Ile_Leu_UDCA",Molecule))%>%
   mutate(suppl_mol=paste(BA_suppl,Molecule,sep="_"))%>%
   filter(suppl_mol %in% mtb_sub$suppl_mol)%>%
-  #filter(BA_suppl=="GUDCA"|BA_suppl=="TUDCA")%>%
+  filter(BA_suppl=="GUDCA"|BA_suppl=="TUDCA")%>%
   #filter(BA_suppl=="GCDCA"|BA_suppl=="TCDCA")%>%
-  filter(BA_suppl=="GCA"|BA_suppl=="TCA")%>%
+  #filter(BA_suppl=="GCA"|BA_suppl=="TCA")%>%
   mutate(BSH_strain=factor(BSH_strain,levels=c("EcAZ-1-cat","AZ-52","Dny-BSH1","Dny-BSH2","Lgasseri-BSH",
                                                "LCAG-95-BSH1208","Ep-BSH101","25MeOH","50MeOH","ctrl")),
          BA_suppl=factor(BA_suppl,levels=c("GCA","TCA","GCDCA","TCDCA","GDCA","TDCA","GLCA","TLCA","GUDCA","TUDCA")))
+
 
 indv_plot<-BA_mtb%>%
   group_by(Molecule)%>%
