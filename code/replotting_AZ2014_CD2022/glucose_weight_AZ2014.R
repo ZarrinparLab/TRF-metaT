@@ -8,7 +8,7 @@ library(ggpubfigs)
 #paths
 input_weight<-"data/AZ2014_CD2022/mouse_n_food_weights_TRF2014.txt"
 input_glucose<-"data/AZ2014_CD2022/microbiome_gtt_TRF2014.txt"
-res<-"results/replotting_AZ2014_CD2022/"
+res<-"figures/replotting_AZ2014_CD2022/"
 #################################################################
 #plot mouse weight--Figure S1A
 

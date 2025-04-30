@@ -1,0 +1,149 @@
+filename	sample_name	ENB	mouseid	plate	well	collection_time	Phase	stool_wgt_mg
+P1_A1_Lut.1N.mzML Peak area	Lut-1N	AZ-51	1N	P1	A1	ZT3	Light	42.9
+P1_A2_Lut.1R.mzML Peak area	Lut-1R	AZ-51	1R	P1	A2	ZT3	Light	40.2
+P1_A3_Lut.1B.mzML Peak area	Lut-1B	AZ-51	1B	P1	A3	ZT3	Light	45.5
+P1_A4_Lut.2L.mzML Peak area	Lut-2L	AZ-51	2L	P1	A4	ZT3	Light	41.9
+P1_A5_Lut.2R.mzML Peak area	Lut-2R	AZ-51	2R	P1	A5	ZT3	Light	45.9
+P1_A6_Lut.2B.mzML Peak area	Lut-2B	AZ-51	2B	P1	A6	ZT3	Light	58.6
+P1_A7_Lut.3N.mzML Peak area	Lut-3N	AZ-51	3N	P1	A7	ZT3	Light	56.6
+P1_A8_Lut.3B.mzML Peak area	Lut-3B	AZ-51	3B	P1	A8	ZT3	Light	47.2
+P1_A9_Lut.4N.mzML Peak area	Lut-4N	AZ-51	4N	P1	A9	ZT3	Light	51.1
+P1_A10_Lut.4B.mzML Peak area	Lut-4B	AZ-51	4B	P1	A10	ZT3	Light	51
+P1_A11_Lut.5N.mzML Peak area	Lut-5N	AZ-52	5N	P1	A11	ZT3	Light	47.1
+P1_B1_Lut.5L.mzML Peak area	Lut-5L	AZ-52	5L	P1	B1	ZT3	Light	49.2
+P1_B2_Lut.5R.mzML Peak area	Lut-5R	AZ-52	5R	P1	B2	ZT3	Light	55.5
+P1_B3_Lut.6L.mzML Peak area	Lut-6L	AZ-52	6L	P1	B3	ZT3	Light	45.6
+P1_B4_Lut.6R.mzML Peak area	Lut-6R	AZ-52	6R	P1	B4	ZT3	Light	51.6
+P1_B5_Lut.6B.mzML Peak area	Lut-6B	AZ-52	6B	P1	B5	ZT3	Light	58.2
+P1_B6_Lut.7L.mzML Peak area	Lut-7L	AZ-52	7L	P1	B6	ZT3	Light	48.3
+P1_B7_Lut.7R.mzML Peak area	Lut-7R	AZ-52	7R	P1	B7	ZT3	Light	51.5
+P1_B8_Lut.8L.mzML Peak area	Lut-8L	AZ-52	8L	P1	B8	ZT3	Light	53.8
+P1_B9_Lut.8B.mzML Peak area	Lut-8B	AZ-52	8B	P1	B9	ZT3	Light	48.8
+P1_B10_Lut.9N.mzML Peak area	Lut-9N	DnBSH1	9N	P1	B10	ZT3	Light	51.1
+P1_B11_Lut.9L.mzML Peak area	Lut-9L	DnBSH1	9L	P1	B11	ZT3	Light	48
+P1_C1_Lut.9R.mzML Peak area	Lut-9R	DnBSH1	9R	P1	C1	ZT3	Light	47.2
+P1_C2_Lut.10N.mzML Peak area	Lut-10N	DnBSH1	10N	P1	C2	ZT3	Light	51.5
+P1_C3_Lut.10L.mzML Peak area	Lut-10L	DnBSH1	10L	P1	C3	ZT3	Light	52.7
+P1_C4_Lut.10R.mzML Peak area	Lut-10R	DnBSH1	10R	P1	C4	ZT3	Light	53.8
+P1_C5_Lut.11L.mzML Peak area	Lut-11L	DnBSH1	11L	P1	C5	ZT3	Light	55.1
+P1_C6_Lut.11B.mzML Peak area	Lut-11B	DnBSH1	11B	P1	C6	ZT3	Light	47.8
+P1_C7_Lut.12N.mzML Peak area	Lut-12N	DnBSH1	12N	P1	C7	ZT3	Light	51.2
+P1_C8_Lut.12B.mzML Peak area	Lut-12B	DnBSH1	12B	P1	C8	ZT3	Light	46.6
+P1_C9_Lut.13N.mzML Peak area	Lut-13N	LgBSH	13N	P1	C9	ZT3	Light	49.2
+P1_C10_Lut.13L.mzML Peak area	Lut-13L	LgBSH	13L	P1	C10	ZT3	Light	53.8
+P1_C11_Lut.13R.mzML Peak area	Lut-13R	LgBSH	13R	P1	C11	ZT3	Light	46.3
+P1_D1_Lut.14L.mzML Peak area	Lut-14L	LgBSH	14L	P1	D1	ZT3	Light	53.7
+P1_D2_Lut.14R.mzML Peak area	Lut-14R	LgBSH	14R	P1	D2	ZT3	Light	59.5
+P1_D3_Lut.14B.mzML Peak area	Lut-14B	LgBSH	14B	P1	D3	ZT3	Light	44.3
+P1_D4_Lut.15N.mzML Peak area	Lut-15N	LgBSH	15N	P1	D4	ZT3	Light	60.1
+P1_D5_Lut.15B.mzML Peak area	Lut-15B	LgBSH	15B	P1	D5	ZT3	Light	46.6
+P1_D6_Lut.16L.mzML Peak area	Lut-16L	LgBSH	16L	P1	D6	ZT3	Light	59.1
+P1_D7_Lut.16R.mzML Peak area	Lut-16R	LgBSH	16R	P1	D7	ZT3	Light	57.7
+P1_D8_Dut.1N.mzML Peak area	Dut-1N	AZ-51	1N	P1	D8	ZT15	Dark	39.6
+P1_D9_Dut.1R.mzML Peak area	Dut-1R	AZ-51	1R	P1	D9	ZT15	Dark	36.7
+P1_D10_Dut.1B.mzML Peak area	Dut-1B	AZ-51	1B	P1	D10	ZT15	Dark	36.4
+P1_D11_Dut.2L.mzML Peak area	Dut-2L	AZ-51	2L	P1	D11	ZT15	Dark	48.4
+P1_E1_Dut.2R.mzML Peak area	Dut-2R	AZ-51	2R	P1	E1	ZT15	Dark	42.1
+P1_E2_Dut.2B.mzML Peak area	Dut-2B	AZ-51	2B	P1	E2	ZT15	Dark	35.8
+P1_E3_Dut.3N.mzML Peak area	Dut-3N	AZ-51	3N	P1	E3	ZT15	Dark	36.3
+P1_E4_Dut.3B.mzML Peak area	Dut-3B	AZ-51	3B	P1	E4	ZT15	Dark	37.6
+P1_E5_Dut.4N.mzML Peak area	Dut-4N	AZ-51	4N	P1	E5	ZT15	Dark	56.2
+P1_E6_Dut.4B.mzML Peak area	Dut-4B	AZ-51	4B	P1	E6	ZT15	Dark	57.2
+P1_E7_Dut.5N.mzML Peak area	Dut-5N	AZ-52	5N	P1	E7	ZT15	Dark	46.3
+P1_E8_Dut.5L.mzML Peak area	Dut-5L	AZ-52	5L	P1	E8	ZT15	Dark	41.1
+P1_E9_Dut.5R.mzML Peak area	Dut-5R	AZ-52	5R	P1	E9	ZT15	Dark	33.7
+P1_E10_Dut.6L.mzML Peak area	Dut-6L	AZ-52	6L	P1	E10	ZT15	Dark	53.1
+P1_E11_Dut.6R.mzML Peak area	Dut-6R	AZ-52	6R	P1	E11	ZT15	Dark	37.4
+P1_F1_Dut.6B.mzML Peak area	Dut-6B	AZ-52	6B	P1	F1	ZT15	Dark	52
+P1_F2_Dut.7L.mzML Peak area	Dut-7L	AZ-52	7L	P1	F2	ZT15	Dark	59.8
+P1_F3_Dut.7R.mzML Peak area	Dut-7R	AZ-52	7R	P1	F3	ZT15	Dark	62.6
+P1_F4_Dut.8L.mzML Peak area	Dut-8L	AZ-52	8L	P1	F4	ZT15	Dark	45.6
+P1_F5_Dut.8B.mzML Peak area	Dut-8B	AZ-52	8B	P1	F5	ZT15	Dark	40.7
+P1_F6_Dut.9N.mzML Peak area	Dut-9N	DnBSH1	9N	P1	F6	ZT15	Dark	31.8
+P1_F7_Dut.9L.mzML Peak area	Dut-9L	DnBSH1	9L	P1	F7	ZT15	Dark	51.4
+P1_F8_Dut.9R.mzML Peak area	Dut-9R	DnBSH1	9R	P1	F8	ZT15	Dark	32.4
+P1_F9_Dut.10N.mzML Peak area	Dut-10N	DnBSH1	10N	P1	F9	ZT15	Dark	38.6
+P1_F10_Dut.10L.mzML Peak area	Dut-10L	DnBSH1	10L	P1	F10	ZT15	Dark	31.3
+P1_F11_Dut.10R.mzML Peak area	Dut-10R	DnBSH1	10R	P1	F11	ZT15	Dark	36
+P1_G1_Dut.11L.mzML Peak area	Dut-11L	DnBSH1	11L	P1	G1	ZT15	Dark	35
+P1_G2_Dut.11B.mzML Peak area	Dut-11B	DnBSH1	11B	P1	G2	ZT15	Dark	42.2
+P1_G3_Dut.12N.mzML Peak area	Dut-12N	DnBSH1	12N	P1	G3	ZT15	Dark	58.9
+P1_G4_Dut.12B.mzML Peak area	Dut-12B	DnBSH1	12B	P1	G4	ZT15	Dark	37.2
+P1_G5_Dut.13N.mzML Peak area	Dut-13N	LgBSH	13N	P1	G5	ZT15	Dark	35.9
+P1_G6_Dut.13L.mzML Peak area	Dut-13L	LgBSH	13L	P1	G6	ZT15	Dark	50.6
+P1_G7_Dut.13R.mzML Peak area	Dut-13R	LgBSH	13R	P1	G7	ZT15	Dark	49
+P1_G8_Dut.14L.mzML Peak area	Dut-14L	LgBSH	14L	P1	G8	ZT15	Dark	37.4
+P1_G9_Dut.14R.mzML Peak area	Dut-14R	LgBSH	14R	P1	G9	ZT15	Dark	34.5
+P1_G10_Dut.14B.mzML Peak area	Dut-14B	LgBSH	14B	P1	G10	ZT15	Dark	45.8
+P1_G11_Dut.15N.mzML Peak area	Dut-15N	LgBSH	15N	P1	G11	ZT15	Dark	35.5
+P1_H1_Dut.15B.mzML Peak area	Dut-15B	LgBSH	15B	P1	H1	ZT15	Dark	45.6
+P1_H2_Dut.16L.mzML Peak area	Dut-16L	LgBSH	16L	P1	H2	ZT15	Dark	36
+P1_H3_Dut.16R.mzML Peak area	Dut-16R	LgBSH	16R	P1	H3	ZT15	Dark	42.5
+Blank_1.mzML Peak area								
+Blank_10.mzML Peak area								
+Blank_11.mzML Peak area								
+Blank_12.mzML Peak area								
+Blank_13.mzML Peak area								
+Blank_14.mzML Peak area								
+Blank_15.mzML Peak area								
+Blank_16.mzML Peak area								
+Blank_17.mzML Peak area								
+Blank_18.mzML Peak area								
+Blank_19.mzML Peak area								
+Blank_2.mzML Peak area								
+Blank_20.mzML Peak area								
+Blank_21.mzML Peak area								
+Blank_22.mzML Peak area								
+Blank_23.mzML Peak area								
+Blank_24.mzML Peak area								
+Blank_25.mzML Peak area								
+Blank_26.mzML Peak area								
+Blank_27.mzML Peak area								
+Blank_28.mzML Peak area								
+Blank_29.mzML Peak area								
+Blank_3.mzML Peak area								
+Blank_30.mzML Peak area								
+Blank_31.mzML Peak area								
+Blank_32.mzML Peak area								
+Blank_5.mzML Peak area								
+Blank_6.mzML Peak area								
+Blank_7.mzML Peak area								
+Blank_8.mzML Peak area								
+Blank_9.mzML Peak area								
+Blank_pre.mzML Peak area								
+CA_aminoacids.mzML Peak area								
+CA_CDCA_aminovalerate.mzML Peak area								
+CA_CDCA_polyamines.mzML Peak area								
+CA_DCA_LCA_aminoacids.mzML Peak area								
+CA_std.mzML Peak area								
+CDCA_aminoacids.mzML Peak area								
+CDCA_std.mzML Peak area								
+column_wash.mzML Peak area								
+DCA_aminoacids_2.mzML Peak area								
+DCA_aminoacids.mzML Peak area								
+DCA_std.mzML Peak area								
+GCA_std.mzML Peak area								
+GCDCA_std.mzML Peak area								
+GDCA_std.mzML Peak area								
+GLCA_std.mzML Peak area								
+GUDCA_std.mzML Peak area								
+LCA_std.mzML Peak area								
+P1_A12_Plate_blank1.mzML Peak area				P1	A12			
+P1_B12_Plate_blank2.mzML Peak area				P1	B12			
+P1_C12_Plate_blank3.mzML Peak area				P1	C12			
+P1_D12_Plate_blank4.mzML Peak area				P1	D12			
+P1_E12_Plate_blank5.mzML Peak area				P1	E12			
+P1_F12_Plate_blank6.mzML Peak area				P1	F12			
+P1_G12_Plate_blank7.mzML Peak area				P1	G12			
+P1_H12_Plate_blank8.mzML Peak area				P1	H12			
+TCA_std.mzML Peak area								
+TCDCA_std.mzML Peak area								
+TDCA_std.mzML Peak area								
+Testmix_1.mzML Peak area								
+Testmix_2.mzML Peak area								
+Testmix_3.mzML Peak area								
+Testmix_4.mzML Peak area								
+TLCA_std.mzML Peak area								
+TUDCA_std.mzML Peak area								
+UDCA_aminoacids.mzML Peak area								
+UDCA_std.mzML Peak area								

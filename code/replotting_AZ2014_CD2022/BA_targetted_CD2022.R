@@ -1,22 +1,17 @@
 setwd("~/Notebooks/sfloresr/TRF-metaT/")
 
 library(tidyverse)
-library(MetaCycle)
 library(data.table)
-library("qiime2R")
-library("Biostrings")
-library(ggrepel)
 library(ggpubr)
-library(gplots)
-library(ggvenn)
-library(ggbreak)
+library(ggrepel)
 library(viridis)
+
 ###########################################################
 #paths
 infile <- "data/AZ2014_CD2022/TI_bileacids_abs_quant_mgtissue_20211122.csv"
 salksamplesheet <- "data/AZ2014_CD2022/TI_bileacids_sample_sheet_20211122.csv"
 mdatf <- "data/AZ2014_CD2022/TI_metadata_final.csv"
-fig_pre <- "results/replotting_AZ2014_CD2022/"
+fig_pre <- "figures/replotting_AZ2014_CD2022/"
 ###########################################################
 
 # Set colors/shapes
