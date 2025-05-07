@@ -10,7 +10,7 @@ library(ComplexHeatmap)
 #paths
 dat_library<-"data/ENB_invitro_metab/GNPS/GNPS_outputs/networking/library-results-merged_results_with_gnps_justBA_collapse.tsv"
 dat_feattab<-"data/ENB_invitro_metab/GNPS/GNPS_outputs/clustering/featuretable_reformated_justBA_summcollapse_cln.csv"
-dat_metadata<-"data/ENB_invitro_metab/GNPS/metadata/ZT_BSH_metadata.tsv"
+dat_metadata<-"data/ENB_invitro_metab/metadata/ZT_BSH_metadata.tsv"
 dat_path<-"data/ENB_invitro_metab/"
 fig_path<-"figures/ENB_invitro_metab/"
 ###########################################################
@@ -31,7 +31,7 @@ run_ttests_BA<-function(mtb,BA){
     mutate(pvals = map(data, ~ TRF_unpr_ttest(.x)))%>%
     dplyr::select(-data)%>%
     unnest()
-  write.table(stat.test,paste(dat_path,"ttest_unpr_results/",BA,"suppl_ttest_unprd_tmpt_pvals.txt",sep=""),
+  write.table(stat.test,paste(dat_path,"GNPS/ttest_unpr_results/",BA,"suppl_ttest_unprd_tmpt_pvals.txt",sep=""),
               sep = "\t",row.names = FALSE, quote=FALSE)  
 }
 
@@ -83,14 +83,14 @@ for(i in BA_list){
 
 BA_t0ht48h_df<-data.frame(FeatureID=NA,BSH_strain=NA,comparison=NA,pval=NA,BA_suppl=NA)
 for(i in BA_list){
-  df_BA<-fread(paste(dat_path,"ttest_unpr_results/",i,"suppl_ttest_unprd_tmpt_pvals.txt",sep=""))
+  df_BA<-fread(paste(dat_path,"GNPS/ttest_unpr_results/",i,"suppl_ttest_unprd_tmpt_pvals.txt",sep=""))
   x<-get_signif_hits_allBA(df_BA,i)
   BA_t0ht48h_df<-rbind(BA_t0ht48h_df,x)
 }
 
 #summary of results for all BAs
 BA_t0ht48h_df<-BA_t0ht48h_df%>%filter(!is.na(FeatureID))
-write.table(BA_t0ht48h_df,paste0(dat_path,"ttest_unpr_results/summ_hits_t0ht48h_allBAstrainsuppl_padj0.05.txt"),
+write.table(BA_t0ht48h_df,paste0(dat_path,"GNPS/ttest_unpr_results/summ_hits_t0ht48h_allBAstrainsuppl_padj0.05.txt"),
             sep = "\t",row.names = FALSE, quote=FALSE)   
 
 #filter out hits that were diff under control
@@ -101,7 +101,7 @@ BA_t0ht48h_rmctrl<-BA_t0ht48h_df%>%
   filter(BSH_strain!="ctrl")%>%
   filter(!(FeatureID %in% list_BA_ctrl$FeatureID))%>%
   mutate(unique_id=paste(FeatureID,BA_suppl,sep="_"))
-#35 unique mtb diff that not diff in controls 
+#35 unique mtb diff that not diff in controls
 
 ###########################################################
 #make heatmap of these 35 unique mtbs--Figure S5A

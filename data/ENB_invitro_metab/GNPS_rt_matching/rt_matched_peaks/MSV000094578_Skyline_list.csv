@@ -1,0 +1,25 @@
+Compound,Adduct,precmz,RT (min),P6_P9,P1_repeat,P2_repeat,P4_P7
+GCA,M+H,466.3163,,6.2,5.8,5.7,6.2
+GCDCA,M+H,450.3214,,8.4,8,7.9,8.4
+GDCA,M+H,450.3214,,8.5,8.3,8.3,8.5
+GLCA,M+H,434.3265,,8.9,8.8,8.8,8.9
+GUDCA,M+H,450.3214,,6.4,5.9,5.8,6.3
+TCAA,M+H,516.299,,5,4.5,4.7,4.9
+TCDCA,M+H,500.304,,6.8,6.4,6.5,6.7
+TDCA,M+H,500.304,,7.2,6.8,6.8,7.1
+TLCA,M+H,484.3091,,8.7,8.6,8.6,8.7
+TUDCA,M+H,500.304,,5,4.5,4.6,4.8
+Ala-UDCA,M+H,464.3371,6.9,7.1,6.4,6.4,6.9
+Ile/Leu-UDCA,M+H,506.384,,8.7,8.6,8.6,NA
+Trp-UDCA,M+H,579.3792,,8.8,8.7,8.7,
+Tyr-UDCA,M+H,556.3633,,,8.5,8.5,
+Lys-UDCA,M+H,521.3949,,4.6,3.9,3.7,
+Phe-UDCA,M+H,540.3684,,,8.9,8.9,
+Lys-CA,M+H,537.3898,,4.3,3.9,3.8,
+Lys-CDCA,M+H,521.3949,,5.8,5.3,5.3,
+,,,,,,,
+cholicacid,M+H,409.2949,,,,,
+chenodeoxycholicacid,M+H,393.2999,,,,,
+deoxycholicacid,M+H,393.2999,,,,,
+lithocholicacid,M+H,377.305,,,,,
+ursodeoxycholicacid,M+H,393.2999,,,,,
