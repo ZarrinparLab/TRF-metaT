@@ -1,0 +1,4 @@
+# Ignore large species_pfam files
+data/bsh_analysis/species_pfam_metaT/species_pfam-TPM.tsv
+data/bsh_analysis/species_pfam_metaT/species_pfam.tsv
+data/bsh_analysis/species_pfam_metaG/species_pfam.tsv

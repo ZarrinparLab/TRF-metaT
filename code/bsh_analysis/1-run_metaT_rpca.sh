@@ -3,16 +3,16 @@
 
 #untargetted
 #path=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/
-#mtb_file=$path/species_pfam/species_pfam_BSH_RPOB_clean_rmzero_noNT.tsv
+#mtb_file=$path/species_pfam_metaT/species_pfam_BSH_RPOB_clean_rmzero_noNT.tsv
 #md_file=$path/metaT_metadata_ztcat_noNT.txt
-#output_path=$path/species_pfam/rpca_results_BSH_RPOB_rmzero
+#output_path=$path/species_pfam_metaT/rpca_results_BSH_RPOB_rmzero
 #comparison=condition
 
 #targetted
 #path=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/
-#mtb_file=$path/BSH_proteindb/genome_noNT_rmdbton.tsv
+#mtb_file=$path/BSH_proteindb_metaT/genome_noNT_rmdbton.tsv
 #md_file=$path/metaT_metadata_ztcat_noNT.txt
-#output_path=$path/BSH_proteindb/rpca_results_genome
+#output_path=$path/BSH_proteindb_metaT/rpca_results_genome
 #comparison=condition
 
 biom convert \

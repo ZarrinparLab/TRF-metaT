@@ -7,12 +7,12 @@ library(viridis)
 
 ###########################################################
 #paths
-notnorm_data<-"data/bsh_analysis/species_pfam/species_pfam.tsv"
-norm_data<-"data/bsh_analysis/species_pfam/species_pfam-TPM.tsv"
-bdm_NAFA_light<-"data/bsh_analysis/species_pfam/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_lightNA.beta_var.tsv"
-bdm_NAFA_dark<-"data/bsh_analysis/species_pfam/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_darkNA.beta_var.tsv"
-bdm_FAFT_light<-"data/bsh_analysis/species_pfam/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_light.beta_var.tsv"
-bdm_FAFT_dark<-"data/bsh_analysis/species_pfam/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_dark.beta_var.tsv"
+notnorm_data<-"data/bsh_analysis/species_pfam_metaT/species_pfam.tsv"
+norm_data<-"data/bsh_analysis/species_pfam_metaT/species_pfam-TPM.tsv"
+bdm_NAFA_light<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_lightNA.beta_var.tsv"
+bdm_NAFA_dark<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_darkNA.beta_var.tsv"
+bdm_FAFT_light<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_light.beta_var.tsv"
+bdm_FAFT_dark<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_dark.beta_var.tsv"
 dat_metadata<-"data/bsh_analysis/metaT_metadata_ztcat_noNT.txt"
 dat_path<-"data/bsh_analysis/"
 fig_path<-"figures/bsh_analysis/"
@@ -140,14 +140,14 @@ bdm_plt<-function(dat){
 ###########################################################
 #subset data
 dat_nn<-subset_dat(notnorm_data)
-write.table(dat_nn,paste0(dat_path,"species_pfam/species_pfam_clean_noNT.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(dat_nn,paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 dat_n<-subset_dat(norm_data)
-write.table(dat_n,paste0(dat_path,"species_pfam/species_pfam_clean_noNT-TPM.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(dat_n,paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT-TPM.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
 ###########################################################
 #subset the data to just have BSH by light and dark-->to run birdman
 
-bsh<-fread(paste0(dat_path,"species_pfam/species_pfam_clean_noNT.tsv"))%>%
+bsh<-fread(paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT.tsv"))%>%
   dplyr::filter(grepl("PF02275.21",FeatureID))%>%
   separate(FeatureID,c("FeatureID",NA), sep="\\|PF", extra="drop")%>%
   mutate(FeatureID=gsub(" ","_",FeatureID))
@@ -158,20 +158,20 @@ bsh_rmz<-bsh_rmz%>%rownames_to_column("FeatureID")
 
 #just light
 dat<-subset_dat_bshLD(bsh_rmz,"light")
-write.table(dat,paste0(dat_path,"species_pfam/species_pfam_BSHonly_clean_rmzero_noNT_light.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(dat,paste0(dat_path,"species_pfam_metaT/species_pfam_BSHonly_clean_rmzero_noNT_light.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
 #just dark
 dat<-subset_dat_bshLD(bsh_rmz,"dark")
-write.table(dat,paste0(dat_path,"species_pfam/species_pfam_BSHonly_clean_rmzero_noNT_dark.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(dat,paste0(dat_path,"species_pfam_metaT/species_pfam_BSHonly_clean_rmzero_noNT_dark.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
 ###########################################################
 #subset the data to just have BSH and RPOB-->to run qurro
 
-bsh<-fread(paste0(dat_path,"species_pfam/species_pfam_clean_noNT.tsv"))%>%
+bsh<-fread(paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT.tsv"))%>%
   dplyr::filter(grepl("PF02275.21",FeatureID)|grepl("PF04563.18",FeatureID))
 
 bsh<-bsh%>%column_to_rownames("FeatureID")
 bsh_rmz <- bsh[!(rowSums(bsh != 0) ==0), ]
 bsh_rmz<-bsh_rmz%>%rownames_to_column("FeatureID") #67 BSH 1085 rpob
-write.table(bsh_rmz,paste0(dat_path,"species_pfam/species_pfam_BSH_RPOB_clean_rmzero_noNT.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(bsh_rmz,paste0(dat_path,"species_pfam_metaT/species_pfam_BSH_RPOB_clean_rmzero_noNT.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
 ###########################################################
 #natural log of BSH vs RPOB--Figure 4B
 
@@ -179,7 +179,7 @@ md<-fread(dat_metadata)%>%
   mutate(condition=ifelse(is.na(condition),"NA",condition))%>%
   dplyr::rename(`Sample ID`=sample_name)
 
-natlog_bsh<-fread(paste0(dat_path,"species_pfam/rpca_results_BSH_RPOB_rmzero/sample_plot_data_speciespfam_BSH_RPOB.tsv"))%>%
+natlog_bsh<-fread(paste0(dat_path,"species_pfam_metaT/rpca_results_BSH_RPOB_rmzero/sample_plot_data_speciespfam_BSH_RPOB.tsv"))%>%
   dplyr::select(1:2)%>%
   left_join(.,md,by="Sample ID")%>%
   mutate(condition=ifelse(is.na(condition),"NA",condition))%>%
@@ -220,17 +220,17 @@ pairwise.wilcox.test(natlog_bshD$Current_Natural_Log_Ratio, natlog_bshD$conditio
 mdT<-fread(dat_metadata)%>%
   mutate(condition=ifelse(is.na(condition),"NA",condition))
 
-selfeat<-fread(paste0(dat_path,"species_pfam/rpca_results_BSH_RPOB_rmzero/selected_features_speciespfam_BSH_RPOB.tsv"))%>%
+selfeat<-fread(paste0(dat_path,"species_pfam_metaT/rpca_results_BSH_RPOB_rmzero/selected_features_speciespfam_BSH_RPOB.tsv"))%>%
   dplyr::filter(grepl("PF02275.21",`Feature ID`))
 
-bsh_datL<-bsh_dist_dat(paste0(dat_path,"species_pfam/species_pfam_clean_noNT-TPM.tsv"),"light")
+bsh_datL<-bsh_dist_dat(paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT-TPM.tsv"),"light")
 lst_keep<-((bsh_datL%>%arrange(-sum_log_TPM))$FeatureID%>%unique())[1:15]
 bsh_datL <- bsh_datL %>%filter(FeatureID %in% lst_keep)
 
 p<-bsh_dist_plt(bsh_datL,"Light")
 ggsave(paste0(fig_path,"SFR23_0719_BSHlight_logTPM.pdf"), p, height=3, width=3.5)
 
-bsh_datD<-bsh_dist_dat(paste0(dat_path,"species_pfam/species_pfam_clean_noNT-TPM.tsv"),"dark")
+bsh_datD<-bsh_dist_dat(paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT-TPM.tsv"),"dark")
 lst_keep<-((bsh_datD%>%arrange(-sum_log_TPM))$FeatureID%>%unique())[1:15]
 bsh_datD <- bsh_datD %>%filter(FeatureID %in% lst_keep)
 
