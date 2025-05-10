@@ -229,9 +229,19 @@ ggsave(paste0(fig_path,"SFR24_0501_gcatca_mtb_LysCA_notpaired_norm.pdf"), width 
 plt_sig_mtbs(BA_mtb,c("GCDCA","TCDCA"),"Lys-CDCA") #Fig5I
 ggsave(paste0(fig_path,"SFR24_0501_gcdcatcdca_mtb_LysCDCA_notpaired_norm.pdf"), width = 8, height = 2)
 
-#run t-test
+#run t-test, Table S5
 BA_list<-c("GCA","GCDCA","GDCA","GLCA","GUDCA","TCA","TCDCA","TDCA","TLCA","TUDCA")
 for(i in BA_list){
   mtb_new<-mtb%>%filter(BA_suppl==i)
   run_ttests_BA(mtb_new,i)
 }
+
+rt_matched_BA_results <- lapply(BA_list, function(BA) {
+  file_path <- paste0(dat_path,"GNPS_rt_matching/ttest_unpr_results/", BA, "suppl_ttest_unprd_tmpt_pvals.txt")
+  read.table(file_path, header = TRUE, sep = "\t") %>%
+    dplyr::rename(rt_matched_detected_BA = Molecule) %>%
+    mutate(culture_supplement_BA = BA)
+}) %>% bind_rows()%>%arrange(t0hvt48h)
+
+write.table(rt_matched_BA_results, file = paste0(dat_path,"GNPS_rt_matching/ttest_unpr_results/BA_invitro_results_combined.txt"), 
+            sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)

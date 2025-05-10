@@ -133,38 +133,6 @@ write.table(comcyc, file = "multiomics/metacycle_results_combined.txt", #Table S
             sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
 
-#BSH Birdman
-
-uFAFT<-fread("metatranscript/woltka2_m_results/species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_allLD.beta_var.tsv")%>%
-  mutate(comparison= "FAvFT",search_method="untargetted")%>%
-  dplyr::rename(BSHspecies=FeatureID)
-
-uNAFA<-fread("metatranscript/woltka2_m_results/species_pfam/birdman/species_pfam_BSHonly_clean_rmzero_noNT_allLDNA.beta_var.tsv")%>%
-  mutate(comparison= "NAvFA",search_method="untargetted")%>%
-  dplyr::rename(BSHspecies=FeatureID)
-
-tFAFT<-fread("metatranscript/woltka2_m_results/BSH/birdman/genomeLD_noNT_rmdbton.beta_var.tsv")%>%
-  mutate(comparison= "FAvFT",search_method="targetted")%>%
-  dplyr::rename(BSHspecies=name)
-
-bsh_birdman<-rbind(uFAFT,uNAFA,tFAFT)%>%
-  arrange(ratio)
-
-write.table(bsh_birdman, file = "multiomics/birdman_results_combined.txt", #Table S4
-            sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
-
-#BA in vitro
-BA_list <- c("GCA", "GCDCA", "GDCA", "GLCA", "GUDCA", "TCA", "TCDCA", "TDCA", "TLCA", "TUDCA")
-
-rt_matched_BA_results <- lapply(BA_list, function(BA) {
-  file_path <- paste0("metatranscript/woltka2_m_results/BSH/BSH_ENB/GNPS_rt_matching/ttest_unpr_results/", BA, "suppl_ttest_unprd_tmpt_pvals.txt")
-  read.table(file_path, header = TRUE, sep = "\t") %>%
-    dplyr::rename(rt_matched_detected_BA = Molecule) %>%
-    mutate(culture_supplement_BA = BA)
-}) %>% bind_rows()%>%arrange(t0hvt48h)
-
-write.table(rt_matched_BA_results, file = "multiomics/BA_invitro_results_combined.txt", #Table S5
-            sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
 
 
