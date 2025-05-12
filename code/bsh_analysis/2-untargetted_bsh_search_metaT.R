@@ -13,7 +13,7 @@ bdm_NAFA_light<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pf
 bdm_NAFA_dark<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_darkNA.beta_var.tsv"
 bdm_FAFT_light<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_light.beta_var.tsv"
 bdm_FAFT_dark<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_dark.beta_var.tsv"
-dat_metadata<-"data/bsh_analysis/metaT_metadata_ztcat_noNT.txt"
+dat_metadata<-"data/metaT_metadata_ztcat_noNT.txt"
 dat_path<-"data/bsh_analysis/"
 fig_path<-"figures/bsh_analysis/"
 ###########################################################

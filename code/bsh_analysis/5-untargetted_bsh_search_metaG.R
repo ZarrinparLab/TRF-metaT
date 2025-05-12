@@ -7,7 +7,7 @@ library(ggpubr)
 ###########################################################
 #paths
 notnorm_data<-"data/bsh_analysis/species_pfam_metaG/species_pfam.tsv"
-dat_metadata<-"data/bsh_analysis/metaG_metadata_noNT.txt"
+dat_metadata<-"data/metaG_metadata_noNT.txt"
 dat_path<-"data/bsh_analysis/"
 fig_path<-"figures/bsh_analysis/"
 ###########################################################

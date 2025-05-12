@@ -17,3 +17,5 @@ data/bsh_analysis/BSH_proteindb_metaT/birdman_outputs/slurm_out/
 data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/inferences/
 data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/logs/
 data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/slurm_out/
+data/pfam_metaT/
+data/pfam_metaG/

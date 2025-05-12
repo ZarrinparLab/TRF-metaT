@@ -1,16 +1,16 @@
 #to run RPCA you need to be in environment qiime2-2021.4
 #need to clean the files using the R scripts first
 
-#path=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/
-#mtb_file=$path/species_pfam_metaG/species_pfam_BSH_RPOB_clean_rmzero_noNT.tsv
+#path=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/
+#mtb_file=$path/bsh_analysis/species_pfam_metaG/species_pfam_BSH_RPOB_clean_rmzero_noNT.tsv
 #md_file=$path/metaG_metadata_noNT.txt
-#output_path=$path/species_pfam_metaG/rpca_results_BSH_RPOB_rmzero
+#output_path=$path/bsh_analysis/species_pfam_metaG/rpca_results_BSH_RPOB_rmzero
 #comparison=condition
 
-#path=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/
-#mtb_file=$path/BSH_proteindb_metaG/genome_noNT_rmdbton.tsv
+#path=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/
+#mtb_file=$path/bsh_analysis/BSH_proteindb_metaG/genome_noNT_rmdbton.tsv
 #md_file=$path/metaG_metadata_noNT.txt
-#output_path=$path/BSH_proteindb_metaG/rpca_results_genome
+#output_path=$path/bsh_analysis/BSH_proteindb_metaG/rpca_results_genome
 #comparison=condition
 
 biom convert \

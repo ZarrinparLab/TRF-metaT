@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 MODEL_PATH = "/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/code/bsh_analysis/untargetted_TRF_birdman_metaT/stan/negative_binomial_single.stan"
-MD = pd.read_table("/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/metaT_metadata_ztcat_noNT.txt",
+MD = pd.read_table("/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/metaT_metadata_ztcat_noNT.txt",
                    sep="\t", index_col='sample_name',keep_default_na=False, na_values=['',])
 
 class BSHModelSingle(SingleFeatureModel):

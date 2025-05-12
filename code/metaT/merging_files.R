@@ -101,36 +101,7 @@ comALDExLD<-rbind(FANAL.effect.annot,FTNAL.effect.annot,FAFTL.effect.annot,FANAD
 write.table(comALDExLD, file = "multiomics/aldex2LD_results_combined.txt", #Table S2
             sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
-#metacycle
-dir3<-"metatranscript/woltka2_m_results/pfam/cyclic_analysis/wol2_rna_pipeline_rpob/"
-cNAt<-fread(paste0(dir3,"NA_metacycle/meta2d_filtered_rna_NA.txt"))%>%
-  mutate(condition="NA",datatype="metaT")%>%
-  arrange(JTK_pvalue)
-cFAt<-fread(paste0(dir3,"FA_metacycle/meta2d_filtered_rna_FA.txt"))%>%
-  mutate(condition="FA",datatype="metaT")%>%
-  arrange(JTK_pvalue)
-cFTt<-fread(paste0(dir3,"FA_metacycle/meta2d_filtered_rna_FA.txt"))%>%
-  mutate(condition="FT",datatype="metaT")%>%
-  arrange(JTK_pvalue)
 
-dir4<-"metagenomic/woltka2_results/filtered_metaG/cyclic_analysis/wol2_dna_pipeline_rpob/"
-cNAm<-fread(paste0(dir4,"NA_metacycle/meta2d_filtered_dna_NA.txt"))%>%
-  mutate(condition="NA",datatype="metaG")%>%
-  arrange(JTK_pvalue)
-cFAm<-fread(paste0(dir4,"FA_metacycle/meta2d_filtered_dna_FA.txt"))%>%
-  mutate(condition="FA",datatype="metaG")%>%
-  arrange(JTK_pvalue)
-cFTm<-fread(paste0(dir4,"FT_metacycle/meta2d_filtered_dna_FT.txt"))%>%
-  mutate(condition="FT",datatype="metaG")%>%
-  arrange(JTK_pvalue)
-
-comcyc<-rbind(cNAt,cFAt,cFTt,cNAm,cFAm,cFTm)%>%
-  dplyr::rename(FeatureID=CycID)%>%
-  left_join(.,feat_annot,by="FeatureID")%>%
-  dplyr::select(FeatureID,Name,GO_Term,condition,datatype,everything())%>%
-  arrange(JTK_pvalue)
-write.table(comcyc, file = "multiomics/metacycle_results_combined.txt", #Table S3
-            sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
 
 
