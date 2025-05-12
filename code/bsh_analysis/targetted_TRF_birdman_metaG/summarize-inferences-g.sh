@@ -1,6 +1,6 @@
 #!/home/sfloresr/anaconda3/envs/birdman/bin/python
-#SBATCH --chdir=/projects/zl_trf_metat/trf_metaT_woltka_results/wol2_wrep_notnorm/BSH_results/inferences/
-#SBATCH --output=/projects/zl_trf_metat/trf_metaT_woltka_results/wol2_wrep_notnorm/BSH_results/slurm_out/species_pfam_BSHonly_clean_rmzero_noNT/%x.out
+#SBATCH --chdir=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/inferences/
+#SBATCH --output=/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/slurm_out/%x.out
 #SBATCH --partition=short
 #SBATCH --mem=8G
 #SBATCH --nodes=1
@@ -13,11 +13,11 @@ import re
 import arviz as az
 import pandas as pd
 
-for inference_dir in glob.glob('/projects/zl_trf_metat/trf_metaT_woltka_results/wol2_wrep_notnorm/BSH_results/inferences/species*'):
+for inference_dir in glob.glob('/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/inferences/*'):
 
     FEAT_REGEX = re.compile("F\d{4}_(.*).nc")
     omic_ = inference_dir.split('/')[-1]
-    outfile = "inferences-results/%s.beta_var.tsv" % (omic_)
+    outfile = "%s.beta_var.tsv" % (omic_)
     all_inf_files = glob.glob(f"{inference_dir}/*.nc")
 
     def process_dataframe(df, feat_id, suffix=""):

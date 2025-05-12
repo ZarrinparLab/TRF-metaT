@@ -1,4 +1,19 @@
-# Ignore large species_pfam files
+# Ignore large files
 data/bsh_analysis/species_pfam_metaT/species_pfam-TPM.tsv
 data/bsh_analysis/species_pfam_metaT/species_pfam.tsv
 data/bsh_analysis/species_pfam_metaG/species_pfam.tsv
+data/bsh_analysis/species_pfam_metaT/birdman_outputs/inferences/
+data/bsh_analysis/species_pfam_metaT/birdman_outputs/inferences_NA/
+data/bsh_analysis/species_pfam_metaT/birdman_outputs/logs/
+data/bsh_analysis/species_pfam_metaT/birdman_outputs/logs_NA/
+data/bsh_analysis/species_pfam_metaT/birdman_outputs/slurm_out/
+data/bsh_analysis/species_pfam_metaT/birdman_outputs/slurm_out_NA/
+data/bsh_analysis/species_pfam_metaG/birdman_outputs/inferences/
+data/bsh_analysis/species_pfam_metaG/birdman_outputs/logs/
+data/bsh_analysis/species_pfam_metaG/birdman_outputs/slurm_out/
+data/bsh_analysis/BSH_proteindb_metaT/birdman_outputs/inferences/
+data/bsh_analysis/BSH_proteindb_metaT/birdman_outputs/logs/
+data/bsh_analysis/BSH_proteindb_metaT/birdman_outputs/slurm_out/
+data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/inferences/
+data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/logs/
+data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/slurm_out/

@@ -5,8 +5,8 @@ from birdman import SingleFeatureModel
 import numpy as np
 import pandas as pd
 
-MODEL_PATH = "/projects/zl_trf_metat/scripts/woltka/TRF_birdman_metaG/stan/negative_binomial_single.stan"
-MD = pd.read_table("/projects/zl_trf_metat/trf_metaG_woltka_results/wol2/filtered_notnorm/species_pfam/metaG_metadata_noNT.txt",
+MODEL_PATH = "/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/code/bsh_analysis/untargetted_TRF_birdman_metaG/stan/negative_binomial_single.stan"
+MD = pd.read_table("/mnt/zarrinpar/Pynchon/Notebooks/sfloresr/TRF-metaT/data/bsh_analysis/metaG_metadata_noNT.txt",
                    sep="\t", index_col='sample_name',keep_default_na=False, na_values=['',])
 
 class BSHModelSingle(SingleFeatureModel):
@@ -33,7 +33,7 @@ class BSHModelSingle(SingleFeatureModel):
         D = table.shape[0]
         A = np.log(1 / D) 
 	# build formula
-        self.create_regression(formula="C(condition, Treatment('NA'))", metadata=MD)
+        self.create_regression(formula="C(condition, Treatment('FA'))", metadata=MD)
 
         param_dict = {
             "depth": np.log(table.sum(axis="sample")),
