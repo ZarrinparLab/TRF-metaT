@@ -7,7 +7,7 @@ library(ggpubr)
 
 ###########################################################
 #inputs
-dat_nn<-"g-diversity-core-metrics114K/rarefied_table/pfam-144k.tsv"
+dat_nn<-"data/DE_analysis/g-diversity-core-metrics114K/rarefied_table/pfam-144k.tsv"
 dat_metadata<-"data/metaT_metadata_ztcat_noNT.txt"
 dat_annot<-"data/pfam_metaT/pfam_annotationkey.csv"
 dat_path<-"data/pfam_metaT/"
