@@ -3,13 +3,9 @@ setwd("~/Notebooks/sfloresr/TRF-metaT/")
 library(tidyverse)
 library(data.table)
 library("qiime2R")
-library("Biostrings")
-library(ggrepel)
 library(ggpubr)
-library(ggbreak)
-library(ggh4x)
 library(rstatix)
-library(multcomp)
+
 ##########################################################
 #paths
 m16s_metadata<-"data/metadata.TRF_combined_wLD.tab"
