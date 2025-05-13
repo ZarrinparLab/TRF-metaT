@@ -14,6 +14,9 @@ dat_mgx_lds<-"data/DE_analysis/aldex_metaG/SFR23_0606_summaldexhitsLD_BHless0.1.
 res_path_mtx<-"data/DE_analysis/aldex_metaT/SFR23_0620_"
 res_path_mgx<-"data/DE_analysis/aldex_metaG/SFR23_0606_"
 dat_annot<-"data/pfam_metaT/pfam_annotationkey.csv"
+dat_go<-"data/pfam_metaT/go_name.txt"
+dat_pfamtogo<-"data/pfam_metaT/pfam-to-go-process.map"
+dat_path<-"data/DE_analysis/"
 fig_path<-"figures/DE_analysis/"
 ##########################################################
 #functions
@@ -190,3 +193,101 @@ p<-ggplot(jdf, aes(x = var1, y = var2, fill = j_val)) +
   theme_minimal() +
   theme(panel.grid = element_blank(),legend.position = "top")+labs(title="Jaccard Index",x="",y="")
 ggsave(paste0(fig_path,"SFR23_0607_jaccard_aldex_MTLD_summ_small.pdf"),plot=p, width = 3.5, height = 4)
+
+##########################################################
+#create aldex results summary table --Table S1-2
+
+gonames<-fread(dat_go)
+pfam2GO<-read.table(dat_pfamtogo,header = FALSE, sep = "\t",
+                    col.names = paste0("V",seq_len(4)), fill = TRUE)%>%
+  gather(column,GO_Term,-V1)%>%
+  dplyr::select(1,3)%>%
+  dplyr::rename(FeatureID=V1)%>%
+  left_join(.,gonames,by="GO_Term")%>%
+  filter(!is.na(name))%>%
+  group_by(FeatureID)%>%
+  slice(1)%>%
+  select(-GO_Term)%>%
+  rename(GO_Term=name)
+
+feat_annot<-fread(dat_annot)%>%
+  left_join(.,pfam2GO,by="FeatureID")
+
+#aldex no LD
+FAFT.effect<-fread(paste0(res_path_mtx,"FAFT_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.FT)%>%
+  mutate(comparison="FAvFT",datatype="metaT")
+FANA.effect<-fread(paste0(res_path_mtx,"FANA_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FAvNA",datatype="metaT")
+FTNA.effect<-fread(paste0(res_path_mtx,"FTNA_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FT,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FTvNA",datatype="metaT")
+
+FAFT.effect.g<-fread(paste0(res_path_mgx,"FAFT_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.FT)%>%
+  mutate(comparison="FAvFT",datatype="metaG")
+FANA.effect.g<-fread(paste0(res_path_mgx,"FANA_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FAvNA",datatype="metaG")
+FTNA.effect.g<-fread(paste0(res_path_mgx,"FTNA_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FT,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FTvNA",datatype="metaG")
+
+comALDEx<-rbind(FANA.effect,FTNA.effect,FAFT.effect,FANA.effect.g,FTNA.effect.g,FAFT.effect.g)%>%
+  left_join(.,feat_annot,by="FeatureID")%>%
+  dplyr::rename(Name=Name.x)%>%
+  dplyr::select(FeatureID,Name,GO_Term,comparison,datatype,diffexpr,everything(),-Name.y)%>%
+  arrange(wi.eBH)
+
+write.table(comALDEx, file = paste0(dat_path,"aldex2_results_combined.txt"), #Table S1
+            sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
+
+#aldex LD
+FAFTL.effect.annot<-fread(paste0(res_path_mtx,"FAFTL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.FT)%>%
+  mutate(comparison="FAvFT",phase="Light",datatype="metaT")
+FAFTD.effect.annot<-fread(paste0(res_path_mtx,"FAFTD_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.FT)%>%
+  mutate(comparison="FAvFT",phase="Dark",datatype="metaT")
+FTNAL.effect.annot<-fread(paste0(res_path_mtx,"FTNAL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FT,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FTvNA",phase="Light",datatype="metaT")
+FTNAD.effect.annot<-fread(paste0(res_path_mtx,"FTNAD_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FT,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FTvNA",phase="Dark",datatype="metaT")
+FANAL.effect.annot<-fread(paste0(res_path_mtx,"FANAL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FAvNA",phase="Light",datatype="metaT")
+FANAD.effect.annot<-fread(paste0(res_path_mtx,"FANAL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FAvNA",phase="Dark",datatype="metaT")
+
+FAFTL.effect.annot.g<-fread(paste0(res_path_mgx,"FAFTL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.FT)%>%
+  mutate(comparison="FAvFT",phase="Light",datatype="metaG")
+FAFTD.effect.annot.g<-fread(paste0(res_path_mgx,"FAFTD_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.FT)%>%
+  mutate(comparison="FAvFT",phase="Dark",datatype="metaG")
+FTNAL.effect.annot.g<-fread(paste0(res_path_mgx,"FTNAL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FT,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FTvNA",phase="Light",datatype="metaG")
+FTNAD.effect.annot.g<-fread(paste0(res_path_mgx,"FTNAD_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FT,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FTvNA",phase="Dark",datatype="metaG")
+FANAL.effect.annot.g<-fread(paste0(res_path_mgx,"FANAL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FAvNA",phase="Light",datatype="metaG")
+FANAD.effect.annot.g<-fread(paste0(res_path_mgx,"FANAL_ald_effectwpval_wannot.txt"))%>%
+  dplyr::rename(rab.win.A=rab.win.FA,rab.win.B=rab.win.NA)%>%
+  mutate(comparison="FAvNA",phase="Dark",datatype="metaG")
+
+comALDExLD<-rbind(FANAL.effect.annot,FTNAL.effect.annot,FAFTL.effect.annot,FANAD.effect.annot,FTNAD.effect.annot,FAFTD.effect.annot,
+                  FANAL.effect.annot.g,FTNAL.effect.annot.g,FAFTL.effect.annot.g,FANAD.effect.annot.g,FTNAD.effect.annot.g,FAFTD.effect.annot.g)%>%
+  left_join(.,feat_annot,by="FeatureID")%>%
+  dplyr::rename(Name=Name.x)%>%
+  dplyr::select(FeatureID,Name,GO_Term,comparison,phase,datatype,diffexpr,everything(),-Name.y)%>%
+  arrange(wi.eBH)
+
+write.table(comALDExLD, file = paste0(dat_path,"aldex2LD_results_combined.txt"), #Table S2
+            sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)

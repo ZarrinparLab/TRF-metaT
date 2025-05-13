@@ -2,18 +2,8 @@ setwd("~/Notebooks/sfloresr/TRF-metaT/")
 
 library(tidyverse)
 library(data.table)
-library("Biostrings")
-library(ggrepel)
-library(ggpubr)
-library(ggbreak)
 library(ALDEx2)
-library(viridis)
-library(RColorBrewer)
-library(ggvenn)
-library(gplots)
-library(DESeq2)
-library(qiime2R)
-library(VennDiagram)
+library(ggpubr)
 
 ###########################################################
 #inputs
