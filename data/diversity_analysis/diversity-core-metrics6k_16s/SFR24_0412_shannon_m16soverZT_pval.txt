@@ -1,0 +1,16 @@
+zt_time	.y.	group1	group2	n1	n2	p	p.signif	p.adj	p.adj.signif
+1	shannon_entropy	NA	FA	3	3	0.452	ns	0.678	ns
+1	shannon_entropy	NA	FT	3	3	0.449	ns	0.678	ns
+1	shannon_entropy	FA	FT	3	3	0.996	ns	0.996	ns
+5	shannon_entropy	NA	FA	2	2	0.48	ns	0.721	ns
+5	shannon_entropy	NA	FT	2	2	0.365	ns	0.721	ns
+5	shannon_entropy	FA	FT	2	2	0.81	ns	0.81	ns
+9	shannon_entropy	NA	FA	3	3	0.0115	*	0.0172	*
+9	shannon_entropy	NA	FT	3	3	0.00332	**	0.00997	**
+9	shannon_entropy	FA	FT	3	3	0.31	ns	0.31	ns
+13	shannon_entropy	NA	FA	3	3	0.0783	ns	0.117	ns
+13	shannon_entropy	NA	FT	3	3	0.0498	*	0.117	ns
+13	shannon_entropy	FA	FT	3	3	0.752	ns	0.752	ns
+21	shannon_entropy	NA	FA	3	3	0.454	ns	0.817	ns
+21	shannon_entropy	NA	FT	3	2	0.817	ns	0.817	ns
+21	shannon_entropy	FA	FT	3	2	0.651	ns	0.817	ns

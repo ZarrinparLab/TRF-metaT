@@ -8,6 +8,7 @@ library(viridis)
 ###########################################################
 #paths
 notnorm_data<-"data/bsh_analysis/species_pfam_metaT/species_pfam.tsv"
+notnorm_data_cln<-"data/bsh_analysis/species_pfam_metaT/species_pfam_clean_noNT.tsv"
 norm_data<-"data/bsh_analysis/species_pfam_metaT/species_pfam-TPM.tsv"
 bdm_NAFA_light<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_lightNA.beta_var.tsv"
 bdm_NAFA_dark<-"data/bsh_analysis/species_pfam_metaT/birdman_outputs/species_pfam_BSHonly_clean_rmzero_noNT_darkNA.beta_var.tsv"
@@ -140,14 +141,14 @@ bdm_plt<-function(dat){
 ###########################################################
 #subset data
 dat_nn<-subset_dat(notnorm_data)
-write.table(dat_nn,paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(dat_nn,notnorm_data_cln,sep = "\t",row.names = FALSE, quote=FALSE)
 
 dat_n<-subset_dat(norm_data)
 write.table(dat_n,paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT-TPM.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
 ###########################################################
 #subset the data to just have BSH by light and dark-->to run birdman
 
-bsh<-fread(paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT.tsv"))%>%
+bsh<-fread(notnorm_data_cln)%>%
   dplyr::filter(grepl("PF02275.21",FeatureID))%>%
   separate(FeatureID,c("FeatureID",NA), sep="\\|PF", extra="drop")%>%
   mutate(FeatureID=gsub(" ","_",FeatureID))
@@ -165,7 +166,7 @@ write.table(dat,paste0(dat_path,"species_pfam_metaT/species_pfam_BSHonly_clean_r
 ###########################################################
 #subset the data to just have BSH and RPOB-->to run qurro
 
-bsh<-fread(paste0(dat_path,"species_pfam_metaT/species_pfam_clean_noNT.tsv"))%>%
+bsh<-fread(notnorm_data_cln)%>%
   dplyr::filter(grepl("PF02275.21",FeatureID)|grepl("PF04563.18",FeatureID))
 
 bsh<-bsh%>%column_to_rownames("FeatureID")

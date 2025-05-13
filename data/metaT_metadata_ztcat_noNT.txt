@@ -1,43 +1,43 @@
-sample_name	organ	diet	schedule	zt_time	replicate	condition	phase	zt_time_cat	cond_phase	cond_zt
-cFA01a	cecum	high fat diet	ad libitum	1	a	FA	light	ZT1	FA_light	FA_1
-cFA01b	cecum	high fat diet	ad libitum	1	b	FA	light	ZT1	FA_light	FA_1
-cFA05a	cecum	high fat diet	ad libitum	5	a	FA	light	ZT5	FA_light	FA_5
-cFA05b	cecum	high fat diet	ad libitum	5	b	FA	light	ZT5	FA_light	FA_5
-cFA09a	cecum	high fat diet	ad libitum	9	a	FA	light	ZT9	FA_light	FA_9
-cFA09b	cecum	high fat diet	ad libitum	9	b	FA	light	ZT9	FA_light	FA_9
-cFA13a	cecum	high fat diet	ad libitum	13	a	FA	dark	ZT13	FA_dark	FA_13
-cFA13b	cecum	high fat diet	ad libitum	13	b	FA	dark	ZT13	FA_dark	FA_13
-cFA17a	cecum	high fat diet	ad libitum	17	a	FA	dark	ZT17	FA_dark	FA_17
-cFA17b	cecum	high fat diet	ad libitum	17	b	FA	dark	ZT17	FA_dark	FA_17
-cFA21a	cecum	high fat diet	ad libitum	21	a	FA	dark	ZT21	FA_dark	FA_21
-cFA21b	cecum	high fat diet	ad libitum	21	b	FA	dark	ZT21	FA_dark	FA_21
-cFT01a	cecum	high fat diet	time restricted	1	a	FT	light	ZT1	FT_light	FT_1
-cFT01b	cecum	high fat diet	time restricted	1	b	FT	light	ZT1	FT_light	FT_1
-cFT05a	cecum	high fat diet	time restricted	5	a	FT	light	ZT5	FT_light	FT_5
-cFT05b	cecum	high fat diet	time restricted	5	b	FT	light	ZT5	FT_light	FT_5
-cFT09a	cecum	high fat diet	time restricted	9	a	FT	light	ZT9	FT_light	FT_9
-cFT09b	cecum	high fat diet	time restricted	9	b	FT	light	ZT9	FT_light	FT_9
-cFT13a	cecum	high fat diet	time restricted	13	a	FT	dark	ZT13	FT_dark	FT_13
-cFT13b	cecum	high fat diet	time restricted	13	b	FT	dark	ZT13	FT_dark	FT_13
-cFT17a	cecum	high fat diet	time restricted	17	a	FT	dark	ZT17	FT_dark	FT_17
-cFT17b	cecum	high fat diet	time restricted	17	b	FT	dark	ZT17	FT_dark	FT_17
-cFT21a	cecum	high fat diet	time restricted	21	a	FT	dark	ZT21	FT_dark	FT_21
-cFT21b	cecum	high fat diet	time restricted	21	b	FT	dark	ZT21	FT_dark	FT_21
-cNA01a	cecum	normal chow	ad libitum	1	a	NA	light	ZT1	NA_light	NA_1
-cNA01b	cecum	normal chow	ad libitum	1	b	NA	light	ZT1	NA_light	NA_1
-cNA01c	cecum	normal chow	ad libitum	1	c	NA	light	ZT1	NA_light	NA_1
-cNA05a	cecum	normal chow	ad libitum	5	a	NA	light	ZT5	NA_light	NA_5
-cNA05b	cecum	normal chow	ad libitum	5	b	NA	light	ZT5	NA_light	NA_5
-cNA05c	cecum	normal chow	ad libitum	5	c	NA	light	ZT5	NA_light	NA_5
-cNA09a	cecum	normal chow	ad libitum	9	a	NA	light	ZT9	NA_light	NA_9
-cNA09b	cecum	normal chow	ad libitum	9	b	NA	light	ZT9	NA_light	NA_9
-cNA09c	cecum	normal chow	ad libitum	9	c	NA	light	ZT9	NA_light	NA_9
-cNA13a	cecum	normal chow	ad libitum	13	a	NA	dark	ZT13	NA_dark	NA_13
-cNA13b	cecum	normal chow	ad libitum	13	b	NA	dark	ZT13	NA_dark	NA_13
-cNA13c	cecum	normal chow	ad libitum	13	c	NA	dark	ZT13	NA_dark	NA_13
-cNA17a	cecum	normal chow	ad libitum	17	a	NA	dark	ZT17	NA_dark	NA_17
-cNA17b	cecum	normal chow	ad libitum	17	b	NA	dark	ZT17	NA_dark	NA_17
-cNA17c	cecum	normal chow	ad libitum	17	c	NA	dark	ZT17	NA_dark	NA_17
-cNA21a	cecum	normal chow	ad libitum	21	a	NA	dark	ZT21	NA_dark	NA_21
-cNA21b	cecum	normal chow	ad libitum	21	b	NA	dark	ZT21	NA_dark	NA_21
-cNA21c	cecum	normal chow	ad libitum	21	c	NA	dark	ZT21	NA_dark	NA_21
+sample_name	organ	diet	schedule	zt_time	replicate	condition	phase	zt_time_cat	cond_phase	cond_zt	fasted	cond_fasted
+cFA01a	cecum	high fat diet	ad libitum	1	a	FA	light	ZT1	FA_light	FA_1	fed	FA_fed
+cFA01b	cecum	high fat diet	ad libitum	1	b	FA	light	ZT1	FA_light	FA_1	fed	FA_fed
+cFA05a	cecum	high fat diet	ad libitum	5	a	FA	light	ZT5	FA_light	FA_5	fasted	FA_fasted
+cFA05b	cecum	high fat diet	ad libitum	5	b	FA	light	ZT5	FA_light	FA_5	fasted	FA_fasted
+cFA09a	cecum	high fat diet	ad libitum	9	a	FA	light	ZT9	FA_light	FA_9	fasted	FA_fasted
+cFA09b	cecum	high fat diet	ad libitum	9	b	FA	light	ZT9	FA_light	FA_9	fasted	FA_fasted
+cFA13a	cecum	high fat diet	ad libitum	13	a	FA	dark	ZT13	FA_dark	FA_13	fasted	FA_fasted
+cFA13b	cecum	high fat diet	ad libitum	13	b	FA	dark	ZT13	FA_dark	FA_13	fasted	FA_fasted
+cFA17a	cecum	high fat diet	ad libitum	17	a	FA	dark	ZT17	FA_dark	FA_17	fed	FA_fed
+cFA17b	cecum	high fat diet	ad libitum	17	b	FA	dark	ZT17	FA_dark	FA_17	fed	FA_fed
+cFA21a	cecum	high fat diet	ad libitum	21	a	FA	dark	ZT21	FA_dark	FA_21	fed	FA_fed
+cFA21b	cecum	high fat diet	ad libitum	21	b	FA	dark	ZT21	FA_dark	FA_21	fed	FA_fed
+cFT01a	cecum	high fat diet	time restricted	1	a	FT	light	ZT1	FT_light	FT_1	fed	FT_fed
+cFT01b	cecum	high fat diet	time restricted	1	b	FT	light	ZT1	FT_light	FT_1	fed	FT_fed
+cFT05a	cecum	high fat diet	time restricted	5	a	FT	light	ZT5	FT_light	FT_5	fasted	FT_fasted
+cFT05b	cecum	high fat diet	time restricted	5	b	FT	light	ZT5	FT_light	FT_5	fasted	FT_fasted
+cFT09a	cecum	high fat diet	time restricted	9	a	FT	light	ZT9	FT_light	FT_9	fasted	FT_fasted
+cFT09b	cecum	high fat diet	time restricted	9	b	FT	light	ZT9	FT_light	FT_9	fasted	FT_fasted
+cFT13a	cecum	high fat diet	time restricted	13	a	FT	dark	ZT13	FT_dark	FT_13	fasted	FT_fasted
+cFT13b	cecum	high fat diet	time restricted	13	b	FT	dark	ZT13	FT_dark	FT_13	fasted	FT_fasted
+cFT17a	cecum	high fat diet	time restricted	17	a	FT	dark	ZT17	FT_dark	FT_17	fed	FT_fed
+cFT17b	cecum	high fat diet	time restricted	17	b	FT	dark	ZT17	FT_dark	FT_17	fed	FT_fed
+cFT21a	cecum	high fat diet	time restricted	21	a	FT	dark	ZT21	FT_dark	FT_21	fed	FT_fed
+cFT21b	cecum	high fat diet	time restricted	21	b	FT	dark	ZT21	FT_dark	FT_21	fed	FT_fed
+cNA01a	cecum	normal chow	ad libitum	1	a	NA	light	ZT1	NA_light	NA_1	fed	NA_fed
+cNA01b	cecum	normal chow	ad libitum	1	b	NA	light	ZT1	NA_light	NA_1	fed	NA_fed
+cNA01c	cecum	normal chow	ad libitum	1	c	NA	light	ZT1	NA_light	NA_1	fed	NA_fed
+cNA05a	cecum	normal chow	ad libitum	5	a	NA	light	ZT5	NA_light	NA_5	fasted	NA_fasted
+cNA05b	cecum	normal chow	ad libitum	5	b	NA	light	ZT5	NA_light	NA_5	fasted	NA_fasted
+cNA05c	cecum	normal chow	ad libitum	5	c	NA	light	ZT5	NA_light	NA_5	fasted	NA_fasted
+cNA09a	cecum	normal chow	ad libitum	9	a	NA	light	ZT9	NA_light	NA_9	fasted	NA_fasted
+cNA09b	cecum	normal chow	ad libitum	9	b	NA	light	ZT9	NA_light	NA_9	fasted	NA_fasted
+cNA09c	cecum	normal chow	ad libitum	9	c	NA	light	ZT9	NA_light	NA_9	fasted	NA_fasted
+cNA13a	cecum	normal chow	ad libitum	13	a	NA	dark	ZT13	NA_dark	NA_13	fasted	NA_fasted
+cNA13b	cecum	normal chow	ad libitum	13	b	NA	dark	ZT13	NA_dark	NA_13	fasted	NA_fasted
+cNA13c	cecum	normal chow	ad libitum	13	c	NA	dark	ZT13	NA_dark	NA_13	fasted	NA_fasted
+cNA17a	cecum	normal chow	ad libitum	17	a	NA	dark	ZT17	NA_dark	NA_17	fed	NA_fed
+cNA17b	cecum	normal chow	ad libitum	17	b	NA	dark	ZT17	NA_dark	NA_17	fed	NA_fed
+cNA17c	cecum	normal chow	ad libitum	17	c	NA	dark	ZT17	NA_dark	NA_17	fed	NA_fed
+cNA21a	cecum	normal chow	ad libitum	21	a	NA	dark	ZT21	NA_dark	NA_21	fed	NA_fed
+cNA21b	cecum	normal chow	ad libitum	21	b	NA	dark	ZT21	NA_dark	NA_21	fed	NA_fed
+cNA21c	cecum	normal chow	ad libitum	21	c	NA	dark	ZT21	NA_dark	NA_21	fed	NA_fed

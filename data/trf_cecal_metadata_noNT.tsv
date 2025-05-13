@@ -1,0 +1,43 @@
+sample_name	organ	diet	schedule	zt_time	replicate	condition
+cFA01a	cecum	high fat diet	ad libitum	1	a	FA
+cFA01b	cecum	high fat diet	ad libitum	1	b	FA
+cFA05a	cecum	high fat diet	ad libitum	5	a	FA
+cFA05b	cecum	high fat diet	ad libitum	5	b	FA
+cFA09a	cecum	high fat diet	ad libitum	9	a	FA
+cFA09b	cecum	high fat diet	ad libitum	9	b	FA
+cFA13a	cecum	high fat diet	ad libitum	13	a	FA
+cFA13b	cecum	high fat diet	ad libitum	13	b	FA
+cFA17a	cecum	high fat diet	ad libitum	17	a	FA
+cFA17b	cecum	high fat diet	ad libitum	17	b	FA
+cFA21a	cecum	high fat diet	ad libitum	21	a	FA
+cFA21b	cecum	high fat diet	ad libitum	21	b	FA
+cFT01a	cecum	high fat diet	time restricted	1	a	FT
+cFT01b	cecum	high fat diet	time restricted	1	b	FT
+cFT05a	cecum	high fat diet	time restricted	5	a	FT
+cFT05b	cecum	high fat diet	time restricted	5	b	FT
+cFT09a	cecum	high fat diet	time restricted	9	a	FT
+cFT09b	cecum	high fat diet	time restricted	9	b	FT
+cFT13a	cecum	high fat diet	time restricted	13	a	FT
+cFT13b	cecum	high fat diet	time restricted	13	b	FT
+cFT17a	cecum	high fat diet	time restricted	17	a	FT
+cFT17b	cecum	high fat diet	time restricted	17	b	FT
+cFT21a	cecum	high fat diet	time restricted	21	a	FT
+cFT21b	cecum	high fat diet	time restricted	21	b	FT
+cNA01a	cecum	normal chow	ad libitum	1	a	NA
+cNA01b	cecum	normal chow	ad libitum	1	b	NA
+cNA01c	cecum	normal chow	ad libitum	1	c	NA
+cNA05a	cecum	normal chow	ad libitum	5	a	NA
+cNA05b	cecum	normal chow	ad libitum	5	b	NA
+cNA05c	cecum	normal chow	ad libitum	5	c	NA
+cNA09a	cecum	normal chow	ad libitum	9	a	NA
+cNA09b	cecum	normal chow	ad libitum	9	b	NA
+cNA09c	cecum	normal chow	ad libitum	9	c	NA
+cNA13a	cecum	normal chow	ad libitum	13	a	NA
+cNA13b	cecum	normal chow	ad libitum	13	b	NA
+cNA13c	cecum	normal chow	ad libitum	13	c	NA
+cNA17a	cecum	normal chow	ad libitum	17	a	NA
+cNA17b	cecum	normal chow	ad libitum	17	b	NA
+cNA17c	cecum	normal chow	ad libitum	17	c	NA
+cNA21a	cecum	normal chow	ad libitum	21	a	NA
+cNA21b	cecum	normal chow	ad libitum	21	b	NA
+cNA21c	cecum	normal chow	ad libitum	21	c	NA

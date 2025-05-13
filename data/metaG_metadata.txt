@@ -1,0 +1,60 @@
+sample_name	condition	diet	schedule	zt_time	replicate	lightdark
+NA1a	NA	normal chow	ad libitum	13	a	dark
+NA2a	NA	normal chow	ad libitum	17	a	dark
+NA3a	NA	normal chow	ad libitum	21	a	dark
+NA4a	NA	normal chow	ad libitum	1	a	light
+NA5a	NA	normal chow	ad libitum	5	a	light
+NA6a	NA	normal chow	ad libitum	9	a	light
+NT1a	NT	normal chow	time restricted	13	a	dark
+NT2a	NT	normal chow	time restricted	17	a	dark
+NT4a	NT	normal chow	time restricted	1	a	light
+NT5a	NT	normal chow	time restricted	5	a	light
+NT6a	NT	normal chow	time restricted	9	a	light
+FA1b	FA	high fat diet	ad libitum	13	b	dark
+FA2b	FA	high fat diet	ad libitum	17	b	dark
+FA3b	FA	high fat diet	ad libitum	21	b	dark
+FA4b	FA	high fat diet	ad libitum	1	b	light
+FA5b	FA	high fat diet	ad libitum	5	b	light
+FA6b	FA	high fat diet	ad libitum	9	b	light
+FT1b	FT	high fat diet	time restricted	13	b	dark
+FT2b	FT	high fat diet	time restricted	17	b	dark
+FT3b	FT	high fat diet	time restricted	21	b	dark
+FT4b	FT	high fat diet	time restricted	1	b	light
+FT5b	FT	high fat diet	time restricted	5	b	light
+FT6b	FT	high fat diet	time restricted	9	b	light
+NA1b	NA	normal chow	ad libitum	13	b	dark
+NA2b	NA	normal chow	ad libitum	17	b	dark
+NA3b	NA	normal chow	ad libitum	21	b	dark
+NA4b	NA	normal chow	ad libitum	1	b	light
+NA5b	NA	normal chow	ad libitum	5	b	light
+NA6b	NA	normal chow	ad libitum	9	b	light
+NT1b	NT	normal chow	time restricted	13	b	dark
+NT2b	NT	normal chow	time restricted	17	b	dark
+NT3b	NT	normal chow	time restricted	21	b	dark
+NT4b	NT	normal chow	time restricted	1	b	light
+NT5b	NT	normal chow	time restricted	5	b	light
+NT6b	NT	normal chow	time restricted	9	b	light
+FA1c	FA	high fat diet	ad libitum	13	c	dark
+FA2c	FA	high fat diet	ad libitum	17	c	dark
+FA3c	FA	high fat diet	ad libitum	21	c	dark
+FA4c	FA	high fat diet	ad libitum	1	c	light
+FA5c	FA	high fat diet	ad libitum	5	c	light
+FA6c	FA	high fat diet	ad libitum	9	c	light
+FT1c	FT	high fat diet	time restricted	13	c	dark
+FT2c	FT	high fat diet	time restricted	17	c	dark
+FT3c	FT	high fat diet	time restricted	21	c	dark
+FT4c	FT	high fat diet	time restricted	1	c	light
+FT5c	FT	high fat diet	time restricted	5	c	light
+FT6c	FT	high fat diet	time restricted	9	c	light
+NA1c	NA	normal chow	ad libitum	13	c	dark
+NA2c	NA	normal chow	ad libitum	17	c	dark
+NA3c	NA	normal chow	ad libitum	21	c	dark
+NA4c	NA	normal chow	ad libitum	1	c	light
+NA5c	NA	normal chow	ad libitum	5	c	light
+NA6c	NA	normal chow	ad libitum	9	c	light
+NT1c	NT	normal chow	time restricted	13	c	dark
+NT2c	NT	normal chow	time restricted	17	c	dark
+NT3c	NT	normal chow	time restricted	21	c	dark
+NT4c	NT	normal chow	time restricted	1	c	light
+NT5c	NT	normal chow	time restricted	5	c	light
+NT6c	NT	normal chow	time restricted	9	c	light

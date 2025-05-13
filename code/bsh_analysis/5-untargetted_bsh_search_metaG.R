@@ -7,6 +7,7 @@ library(ggpubr)
 ###########################################################
 #paths
 notnorm_data<-"data/bsh_analysis/species_pfam_metaG/species_pfam.tsv"
+notnorm_data_cln<-"data/bsh_analysis/species_pfam_metaG/species_pfam_clean_noNT.tsv"
 dat_metadata<-"data/metaG_metadata_noNT.txt"
 dat_path<-"data/bsh_analysis/"
 fig_path<-"figures/bsh_analysis/"
@@ -44,12 +45,12 @@ subset_dat_bshLD<-function(dt,phase){
 ###########################################################
 #subset data
 dat_nn<-subset_dat(notnorm_data)
-write.table(dat_nn,paste0(dat_path,"species_pfam_metaG/species_pfam_clean_noNT.tsv"),sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(dat_nn,notnorm_data_cln,sep = "\t",row.names = FALSE, quote=FALSE)
 
 ###########################################################
 #subset the data to just have BSH by light and dark-->to run birdman
 
-bsh<-fread(paste0(dat_path,"species_pfam_metaG/species_pfam_clean_noNT.tsv"))%>%
+bsh<-fread(notnorm_data_cln)%>%
   dplyr::filter(grepl("PF02275.21",FeatureID))%>%
   separate(FeatureID,c("FeatureID",NA), sep="\\|PF", extra="drop")%>%
   mutate(FeatureID=gsub(" ","_",FeatureID))
@@ -68,7 +69,7 @@ write.table(dat,paste0(dat_path,"species_pfam_metaG/species_pfam_BSHonly_clean_r
 ###########################################################
 #subset the data to just have BSH and RPOB-->to run qurro
 
-bsh<-fread(paste0(dat_path,"species_pfam_metaG/species_pfam_clean_noNT.tsv"))%>%
+bsh<-fread(notnorm_data_cln)%>%
   dplyr::filter(grepl("PF02275.21",FeatureID)|grepl("PF04563.18",FeatureID))
 
 bsh<-bsh%>%column_to_rownames("FeatureID")
