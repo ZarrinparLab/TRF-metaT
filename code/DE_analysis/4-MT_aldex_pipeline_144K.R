@@ -10,7 +10,7 @@ library(ggpubr)
 dat_nn<-"data/DE_analysis/g-diversity-core-metrics114K/rarefied_table/pfam-144k.tsv"
 dat_metadata<-"data/metaT_metadata_ztcat_noNT.txt"
 dat_annot<-"data/pfam_metaT/pfam_annotationkey.csv"
-dat_path<-"data/pfam_metaT/"
+dat_path<-"data/DE_analysis/g-diversity-core-metrics114K/rarefied_table/"
 res_path<-"data/DE_analysis/aldex_metaT/SFR24_0529_"
 fig_path<-"figures/DE_analysis/"
 ###########################################################
@@ -36,39 +36,39 @@ get_chi_LD<-function(dat,compar){
 
 #FA vs FT
 pfamFAFT<-fread(dat_nn)%>%dplyr::select(c(1:25))
-write.table(pfamFAFT,"g-diversity-core-metrics114K/rarefied_table/feature-table-FAFT.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFAFT,paste0(dat_path,"feature-table-FAFT.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #just light
 pfamFAFTL<-fread(dat_nn)%>%dplyr::select(c(1:7,14:19))
-write.table(pfamFAFTL,"g-diversity-core-metrics114K/rarefied_table/feature-table-FAFTL.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFAFTL,paste0(dat_path,"feature-table-FAFTL.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #just dark
 pfamFAFTD<-fread(dat_nn)%>%dplyr::select(c(1,8:13,20:25))
-write.table(pfamFAFTD,"g-diversity-core-metrics114K/rarefied_table/feature-table-FAFTD.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFAFTD,paste0(dat_path,"feature-table-FAFTD.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #FT vs NA
 pfamFTNA<-fread(dat_nn)%>%dplyr::select(c(1,14:43))
-write.table(pfamFTNA,"g-diversity-core-metrics114K/rarefied_table/feature-table-FTNA.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFTNA,paste0(dat_path,"feature-table-FTNA.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #light
 pfamFTNAL<-fread(dat_nn)%>%dplyr::select(c(1,14:19,26:34))
-write.table(pfamFTNAL,"g-diversity-core-metrics114K/rarefied_table/feature-table-FTNAL.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFTNAL,paste0(dat_path,"feature-table-FTNAL.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #dark
 pfamFTNAD<-fread(dat_nn)%>%dplyr::select(c(1,20:25,35:43))
-write.table(pfamFTNAD,"g-diversity-core-metrics114K/rarefied_table/feature-table-FTNAD.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFTNAD,paste0(dat_path,"feature-table-FTNAD.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #FA vs NA
 pfamFANA<-fread(dat_nn)%>%dplyr::select(c(1:13,26:43))
-write.table(pfamFANA,"g-diversity-core-metrics114K/rarefied_table/feature-table-FANA.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFANA,paste0(dat_path,"feature-table-FANA.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #light
 pfamFANAL<-fread(dat_nn)%>%dplyr::select(c(1:7,26:34))
-write.table(pfamFANAL,"g-diversity-core-metrics114K/rarefied_table/feature-table-FANAL.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFANAL,paste0(dat_path,"feature-table-FANAL.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 #dark
 pfamFANAD<-fread(dat_nn)%>%dplyr::select(c(1,8:13,35:43))
-write.table(pfamFANAD,"g-diversity-core-metrics114K/rarefied_table/feature-table-FANAD.txt",sep = "\t",row.names = FALSE, quote=FALSE)
+write.table(pfamFANAD,paste0(dat_path,"feature-table-FANAD.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
 ###########################################################
 #run aldex
@@ -78,12 +78,10 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 ##FA vs. FT
-pfamFAFT<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FAFT.txt")%>%column_to_rownames("FeatureID")
+pfamFAFT<-fread(paste0(dat_path,"feature-table-FAFT.txt"))%>%column_to_rownames("FeatureID")
 condsFAvsFT<-conds[1:24]
 FAFT.effect<-run_aldex(pfamFAFT,condsFAvsFT)
 write.table(FAFT.effect.annot,paste0(res_path,"FAFT_ald_effectwpval_144k.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
-
-FAFT.effect<-fread("pfam/aldex/SFR24_0529_FAFT_ald_effectwpval_144K.txt")
 
 #FA vs FT (light)
 md<-fread(dat_metadata)%>%
@@ -92,7 +90,7 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 condsFAvsFTL<-conds[1:12]
-pfamFAFTL<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FAFTL.txt")%>%column_to_rownames("FeatureID")
+pfamFAFTL<-fread(paste0(dat_path,"feature-table-FAFTL.txt"))%>%column_to_rownames("FeatureID")
 FAFTL.effect<-run_aldex(pfamFAFTL,condsFAvsFTL)
 write.table(FAFTL.effect,paste0(res_path,"FAFTL_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
@@ -103,7 +101,7 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 condsFAvsFTD<-conds[1:12]
-pfamFAFTD<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FAFTD.txt")%>%column_to_rownames("FeatureID")
+pfamFAFTD<-fread(paste0(dat_path,"feature-table-FAFTD.txt"))%>%column_to_rownames("FeatureID")
 FAFTD.effect<-run_aldex(pfamFAFTD,condsFAvsFTD)
 write.table(FAFTD.effect,paste0(res_path,"FAFTD_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
@@ -112,7 +110,7 @@ md<-fread(dat_metadata)%>%
   mutate(condition=ifelse(is.na(condition),"NA",condition))
 conds <- md$condition
 
-pfamFTNA<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FTNA.txt")%>%column_to_rownames("FeatureID")
+pfamFTNA<-fread(paste0(dat_path,"feature-table-FTNA.txt"))%>%column_to_rownames("FeatureID")
 condsFTvsNA<-conds[c(13:42)]
 FTNA.effect<-run_aldex(pfamFTNA,condsFTvNA)
 write.table(FTNA.effect,paste0(res_path,"FTNA_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
@@ -124,7 +122,7 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 condsFTvsNAL<-conds[c(7:21)]
-pfamFTNAL<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FTNAL.txt")%>%column_to_rownames("FeatureID")
+pfamFTNAL<-fread(paste0(dat_path,"feature-table-FTNAL.txt"))%>%column_to_rownames("FeatureID")
 FTNAL.effect<-run_aldex(pfamFTNAL,condsFTvNAL)
 write.table(FTNAL.effect,paste0(res_path,"FTNAL_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
@@ -135,7 +133,7 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 condsFTvsNAD<-conds[c(7:21)]
-pfamFTNAD<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FTNAD.txt")%>%column_to_rownames("FeatureID")
+pfamFTNAD<-fread(paste0(dat_path,"feature-table-FTNAD.txt"))%>%column_to_rownames("FeatureID")
 FTNALD.effect<-run_aldex(pfamFTNAD,condsFTvNAD)
 write.table(FTNAD.effect,paste0(res_path,"FTNAD_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
@@ -144,7 +142,7 @@ md<-fread(dat_metadata)%>%
   mutate(condition=ifelse(is.na(condition),"NA",condition))
 conds <- md$condition
 
-pfamFANA<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FANA.txt")%>%column_to_rownames("FeatureID")
+pfamFANA<-fread(paste0(dat_path,"feature-table-FANA.txt"))%>%column_to_rownames("FeatureID")
 condsFAvsNA<-conds[c(1:12,25:42)]
 FANA.effect<-run_aldex(pfamFANA,condsFAvsNA)
 write.table(FANA.effect,paste0(res_path,"FANA_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
@@ -156,7 +154,7 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 condsFAvsNAL<-conds[c(1:6,13:21)]
-pfamFANAL<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FANAL.txt")%>%column_to_rownames("FeatureID")
+pfamFANAL<-fread(paste0(dat_path,"feature-table-FANAL.txt"))%>%column_to_rownames("FeatureID")
 FANAL.effect<-run_aldex(pfamFANAL,condsFAvsNAL)
 write.table(FANAL.effect,paste0(res_path,"FANAL_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
@@ -167,7 +165,7 @@ md<-fread(dat_metadata)%>%
 conds <- md$condition
 
 condsFAvsNAD<-conds[c(1:6,13:21)]
-pfamFANAD<-fread("g-diversity-core-metrics114K/rarefied_table/feature-table-FANAD.txt")%>%column_to_rownames("FeatureID")
+pfamFANAD<-fread(paste0(dat_path,"feature-table-FANAD.txt"))%>%column_to_rownames("FeatureID")
 FANAD.effect<-run_aldex(pfamFANAD,condsFAvsNAD)
 write.table(FANAD.effect,paste0(res_path,"FANAD_ald_effectwpval_144K.txt"),sep = "\t",row.names = FALSE, quote=FALSE)
 
