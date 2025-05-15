@@ -33,4 +33,4 @@ Under "data" we also include:
 
 ## Citation
 
-Flores Ramos, S., Siguenza, N., Zhong, W., Mohanty, I., Lingaraju, A., Richter, R.A., Karthikeyan, S., Lukowski, A.L., Zhu, Q., Nunes, W.D.G., Zemlin, J., Xu, Z.Z., Hasty, J., Dorrestein, P.C., Panda, S., Knight, R., Zarrinpar, A. “Diurnal Characterization of Metatranscriptomics Yields Bacterial Transgenes with Pronounced Metabolic Effects”. Cell Host & Microbe (2025)
+Flores Ramos, S., Siguenza, N., Zhong, W., Mohanty, I., Lingaraju, A., Richter, R.A., Karthikeyan, S., Lukowski, A.L., Zhu, Q., Nunes, W.D.G., Zemlin, J., Xu, Z.Z., Hasty, J., Dorrestein, P.C., Panda, S., Knight, R., Zarrinpar, A. “Metatranscriptomics Uncover Diurnal Functional Shifts in Bacterial Transgenes with Profound Metabolic Effects”. Cell Host & Microbe (2025)
