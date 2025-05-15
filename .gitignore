@@ -19,3 +19,5 @@ data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/logs/
 data/bsh_analysis/BSH_proteindb_metaG/birdman_outputs/slurm_out/
 data/pfam_metaT/
 data/pfam_metaG/
+data/genome_metaT/
+data/genoem_metaG/

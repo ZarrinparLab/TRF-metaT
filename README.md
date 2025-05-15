@@ -10,10 +10,26 @@ We used samples collected and phenotyped from [Zarrinpar, et al. 2014](https://w
 
 ## Organization of files
 
-### Input data
-All data used for analysis is available under `./data`
+The main folder are "code", "data", and "figures". Within each folder, it is organized as follows:
 
-### Data Analysis
+- diversity_analysis: contains the code, data, or figures for the diversity analysis comparing 16S, metagenomics genes, and metatranscriptomic transcripts. Related to Figure 1.
+- DE_analysis: contains the code, data, or figures for the differential abundance analysis for the metagenomics genes and metatranscriptomic transcripts. Related to Figure 2.
+- cycling_analysis: contains the code, data, or figures for the cycling analysis for the metagenomics genes and metatranscriptomic transcripts. Related to Figure 3.
+- bsh_analysis: contains the code, data, or figures for the bsh differential expression analysis using the targeted and untargeted search for bsh in the metatranscriptomics. Related to Figure 4.
+- ENB_invitro_metab: contains the code, data, or figures the bile acid quantification from the cultures of ENBs. Related to Figure 5.
+- ENB_invivo_metab: contains the code, data, or figures for the phenotypic measurements of mice gavaged with ENBs. Also contains the fecal bile acid quantification of these mice. Related to Figure 6.
+- replotting_AZ2014_CD2022: contains the code, data, or figures for weight and glucose measurements from Zarrinpar 2014 and ileum bile acid quantification from Dantas Machado, 2022 we replotted in Figure S1 and S4, respectively.
+
+Under "code" we also include:
+- processing_metaG: contains the code used to process the metagenomic data from fastq to counts table.
+- processing_metaT: contains the code used to process the metatranscriptomics data from fastq to counts table.
+
+Under "data" we also include:
+- m16s: contains the processed 16s counts data from Zarrinpar 2014
+- genome_metaG: contains woltka processed metagenomic counts data at the genome level
+- genome_metaT: contains woltka processed metatranscriptomics counts data at the genome level
+- pfam_metaG: contains woltka processed metagenomic counts data collapsed to pfam functions
+- pfam_metaT: contains woltka processed metatranscriptomics counts data collapsed to pfam functions
 
 ## Citation
 
