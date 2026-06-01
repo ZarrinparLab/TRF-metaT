@@ -123,6 +123,9 @@ mtb_bsln<-mtb%>%
   mutate(Molecule=ifelse(Molecule=="Ile/Leu-UDCA","Ile_Leu_UDCA",Molecule))%>%
   mutate(Molecule=ifelse(Molecule=="TCAA","TCA",Molecule))
 
+write.table(mtb_bsln,paste0(dat_path,"GNPS_rt_matching/mtb_table_rtmatched_cleanfull.txt"),sep = "\t",row.names = FALSE, quote=FALSE)   
+
+
 BA_list<-c("GCA","GCDCA","GDCA","GLCA","GUDCA","TCA","TCDCA","TDCA","TLCA","TUDCA")
 for(i in BA_list){
   mtb_new<-mtb_bsln%>%filter(BA_suppl==i & Molecule==i)
